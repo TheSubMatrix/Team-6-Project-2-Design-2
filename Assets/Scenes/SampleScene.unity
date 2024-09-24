@@ -308,6 +308,13 @@ MonoBehaviour:
   m_turningSpeed: 1440
   m_dashDistance: 4
   m_dashTime: 0.125
+  m_dashCooldown: 0.5
+  OnDashStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDashEnded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +377,7 @@ Camera:
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

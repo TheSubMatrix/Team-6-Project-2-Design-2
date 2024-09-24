@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
+/// <summary>
+/// This class handles the player movement and dashing
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 m_playerInput;
     Matrix4x4 m_cameraRotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(0,45,0));
     bool m_isDashing = false;
+    bool m_isInDashCooldown = false;
 
     [Header("Movement Options")]
     [SerializeField] float m_movementSpeed = 6;
@@ -16,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash Options")]
     [SerializeField] float m_dashDistance = 4;
     [SerializeField] float m_dashTime = .125f;
+    [SerializeField] float m_dashCooldown = .5f;
+    [Header("Unity Events")]
+    [SerializeField] public UnityEvent OnDashStarted = new UnityEvent();
+    [SerializeField] public UnityEvent OnDashEnded = new UnityEvent();
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -31,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         //Get player directional input
         m_playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         //Get player dash input
-        if(Input.GetKeyDown(KeyCode.Space) && !m_isDashing)
+        if(Input.GetKeyDown(KeyCode.Space) && !m_isDashing && !m_isInDashCooldown)
         {
             StartCoroutine(Dash());
         }
@@ -56,11 +64,17 @@ public class PlayerMovement : MonoBehaviour
             m_rigidBody.MovePosition(transform.position + (transform.forward * m_playerInput.normalized.magnitude) * m_movementSpeed * Time.fixedDeltaTime);
         }
     }
+    /// <summary>
+    /// Dashes forward over the given period and distance
+    /// </summary>
+    /// <returns>Nothing</returns>
     IEnumerator Dash()
     {
+        //setup variables for upcoming dash
         m_isDashing = true;
+        OnDashStarted?.Invoke();
         float elapsedTime = 0f;
-        Debug.Log("Start");
+        //Move the position along the dash a given amount every fixed update
         while(elapsedTime < m_dashTime)
         {
 
@@ -68,7 +82,16 @@ public class PlayerMovement : MonoBehaviour
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        Debug.Log("End");
+        //Start dash cooldown
+        StartCoroutine(ResetDashAfterCooldown());
+        //Change our isDashing variable back so we can move normally
         m_isDashing = false;
+        OnDashEnded?.Invoke();
+    }
+    IEnumerator ResetDashAfterCooldown()
+    {
+        m_isInDashCooldown = true;
+        yield return new WaitForSeconds(m_dashCooldown);
+        m_isInDashCooldown = false;
     }
 }
