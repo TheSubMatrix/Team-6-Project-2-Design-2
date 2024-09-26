@@ -24,9 +24,9 @@ float3 ToonLightHandling(ToonLightingData toonLightingData, Light light)
     float2 rampUV = float2(1 - (diffuse * 0.5 + 0.5), 0.5);
     float lightIntensity = SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, rampUV).r;
     float3 radiance = light.color * lightIntensity;
-    float specularDot = saturate(dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS)));
-    float specular = smoothstep(0.005, 0.01, pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * diffuse);
-    return toonLightingData.albedo * (toonLightingData.ambientColor + radiance + (specular * toonLightingData.specularColor));
+    float specularDot = dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS));
+    float specular = smoothstep(0.0005, 0.001, pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * lightIntensity);
+    return toonLightingData.albedo * (toonLightingData.ambientColor + radiance + lerp(0, (specular * toonLightingData.specularColor), (toonLightingData.smoothness)));
     
 }
 #endif
