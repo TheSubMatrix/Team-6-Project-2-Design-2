@@ -16,9 +16,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Options")]
     [SerializeField] float m_movementSpeed = 6;
+    [SerializeField] float acceleration;
     [SerializeField] float m_turningSpeed = 1440;
     [Header("Dash Options")]
-    [SerializeField] float m_dashDistance = 4;
+    [SerializeField] float m_dashSpeed = 4;
     [SerializeField] float m_dashTime = .125f;
     [SerializeField] float m_dashCooldown = .5f;
     [Header("Unity Events")]
@@ -60,8 +61,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!m_isDashing)
         {
+            Vector3 desiredMovement = new Vector3(transform.forward.x * m_movementSpeed * m_playerInput.normalized.magnitude, m_rigidBody.velocity.y, transform.forward.z * m_movementSpeed * m_playerInput.normalized.magnitude);
             //Move the rigidbody based on our direction 
-            m_rigidBody.MovePosition(transform.position + (transform.forward * m_playerInput.normalized.magnitude) * m_movementSpeed * Time.fixedDeltaTime);
+            m_rigidBody.velocity = Vector3.MoveTowards(m_rigidBody.velocity, desiredMovement, acceleration);
         }
     }
     /// <summary>
@@ -77,8 +79,8 @@ public class PlayerMovement : MonoBehaviour
         //Move the position along the dash a given amount every fixed update
         while(elapsedTime < m_dashTime)
         {
-
-            m_rigidBody.MovePosition(transform.position + (transform.forward *  Time.fixedDeltaTime * (m_dashDistance/m_dashTime)));
+            Vector3 desiredMovement = new Vector3(transform.forward.x * m_dashSpeed, m_rigidBody.velocity.y, transform.forward.z * m_dashSpeed);
+            m_rigidBody.velocity = desiredMovement;
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
