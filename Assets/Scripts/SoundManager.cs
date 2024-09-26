@@ -68,6 +68,12 @@ public class SoundManager : MonoBehaviour
         return m_sounds.Find(sound => sound.Name == name);
     }
 #nullable disable
+    /// <summary>
+    /// Plays a sound at a static location
+    /// </summary>
+    /// <param name="location">The location that the sound should play at</param>
+    /// <param name="soundInfo">The info of the sound that should be played</param>
+    /// <returns>The GameObject with the attached AudioSource</returns>
     public GameObject PlaySound(Vector3 location, SoundInfo soundInfo)
     {
         GameObject sound = soundPool.Get();
@@ -78,6 +84,12 @@ public class SoundManager : MonoBehaviour
         Debug.Log(source.isPlaying);
         return sound;
     }
+    /// <summary>
+    /// Plays the sound on a given transform
+    /// </summary>
+    /// <param name="transform">The transform the sound should be attached to</param>
+    /// <param name="soundInfo">The info of the sound that should be played</param>
+    /// <returns>The GameObject with the attached AudioSource</returns>
     public GameObject PlaySound(Transform transform, SoundInfo soundInfo)
     {
         GameObject sound = soundPool.Get();

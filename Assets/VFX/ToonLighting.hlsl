@@ -11,6 +11,8 @@ struct ToonLightingData
     UnitySamplerState sampler_rampTexture;
     float3 albedo;
     float smoothness;
+    float4 shadowCoord;
+    float3 positionWS;
 };
 #ifndef SHADERGRAPH_PREVIEW
 float GetSmoothnessPower(float rawSmoothness)
@@ -23,10 +25,10 @@ float3 ToonLightHandling(ToonLightingData toonLightingData, Light light)
     float diffuse = dot(toonLightingData.normalWS, light.direction);
     float2 rampUV = float2(1 - (diffuse * 0.5 + 0.5), 0.5);
     float lightIntensity = SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, rampUV).r;
-    float3 radiance = light.color * lightIntensity;
+    float3 radiance = light.color * light.shadowAttenuation;
     float specularDot = dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS));
     float specular = smoothstep(0.0005, 0.001, pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * lightIntensity);
-    return toonLightingData.albedo * (toonLightingData.ambientColor + radiance + lerp(0, (specular * toonLightingData.specularColor), (toonLightingData.smoothness)));
+    return (toonLightingData.albedo * radiance * (lightIntensity + (lerp(0, specular * toonLightingData.specularColor, toonLightingData.smoothness)))) + toonLightingData.ambientColor;
     
 }
 #endif
@@ -38,7 +40,7 @@ float3 CalculateToonLighting(ToonLightingData toonLightingData)
     float intensity = saturate(dot(toonLightingData.normalWS, lightDir));
     return toonLightingData.albedo * intensity;
     #else
-    Light mainLight = GetMainLight();
+    Light mainLight = GetMainLight(toonLightingData.shadowCoord, toonLightingData.positionWS, 1);
     float3 color = 0;
     color += ToonLightHandling(toonLightingData, mainLight);
     return color;
@@ -47,9 +49,10 @@ float3 CalculateToonLighting(ToonLightingData toonLightingData)
 }
 
 //Wrapper for use in shader graph
-void CalculateToonLighting_float(float3 albedo, float smoothness, float4 specularColor, float4 ambientColor, float3 worldspaceNormal, float3 viewDirection, UnityTexture2D rampTexture, UnitySamplerState sampler_rampTexture, out float3 finalCol)
+void CalculateToonLighting_float(float3 position, float3 albedo, float smoothness, float4 specularColor, float4 ambientColor, float3 worldspaceNormal, float3 viewDirection, UnityTexture2D rampTexture, UnitySamplerState sampler_rampTexture, out float3 finalCol)
 {
     ToonLightingData toonLightingData;
+    toonLightingData.positionWS = position;
     toonLightingData.albedo = albedo;
     toonLightingData.specularColor = specularColor;
     toonLightingData.normalWS = worldspaceNormal;
@@ -58,6 +61,16 @@ void CalculateToonLighting_float(float3 albedo, float smoothness, float4 specula
     toonLightingData.sampler_rampTexture = sampler_rampTexture;
     toonLightingData.smoothness = smoothness;
     toonLightingData.ambientColor = ambientColor;
+    #ifdef SHADERGRAPH_PREVIEW
+        toonLightingData.shadowCoord = 0;
+    #else
+        float4 positionCS = TransformWorldToHClip(position);
+        #if SHADOWS_SCREEN
+            toonLightingData.shadowCoord = ComputeScreenPos(positionCS);
+        #else
+            toonLightingData.shadowCoord = TransformWorldToShadowCoord(position);
+        #endif
+    #endif
     finalCol = CalculateToonLighting(toonLightingData);
 }
 #endif
