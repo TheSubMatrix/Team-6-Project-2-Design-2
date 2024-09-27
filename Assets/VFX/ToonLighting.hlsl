@@ -25,10 +25,12 @@ float3 ToonLightHandling(ToonLightingData toonLightingData, Light light)
     float diffuse = dot(toonLightingData.normalWS, light.direction);
     float2 rampUV = float2(1 - (diffuse * 0.5 + 0.5), 0.5);
     float lightIntensity = SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, rampUV).r;
-    float3 radiance = light.color * light.shadowAttenuation;
-    float specularDot = dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS));
-    float specular = smoothstep(0.0005, 0.001, pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * lightIntensity);
-    return (toonLightingData.albedo * radiance * (lightIntensity + (lerp(0, specular * toonLightingData.specularColor, toonLightingData.smoothness)))) + toonLightingData.ambientColor;
+    float3 radiance = light.color * (light.shadowAttenuation * light.distanceAttenuation);
+    float specularDot = saturate(dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS)));
+    float specular = pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * diffuse;
+    float specularIntensity = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, specular);
+    float totalSpecular = lerp(0, specularIntensity * toonLightingData.specularColor, toonLightingData.smoothness * toonLightingData.smoothness) * light.shadowAttenuation;
+    return (toonLightingData.albedo * radiance * lightIntensity)+ totalSpecular + toonLightingData.ambientColor;
     
 }
 #endif
@@ -36,14 +38,23 @@ float3 CalculateToonLighting(ToonLightingData toonLightingData)
 {
     //Fix for urp lighting not being included in shader graph preview
     #ifdef SHADERGRAPH_PREVIEW
-    float lightDir = float3(0.5, 0.5, 0);
-    float intensity = saturate(dot(toonLightingData.normalWS, lightDir));
-    return toonLightingData.albedo * intensity;
+        float lightDir = float3(0.5, 0.5, 0);
+        float intensity = saturate(dot(toonLightingData.normalWS, lightDir));
+        return toonLightingData.albedo * intensity;
     #else
-    Light mainLight = GetMainLight(toonLightingData.shadowCoord, toonLightingData.positionWS, 1);
-    float3 color = 0;
-    color += ToonLightHandling(toonLightingData, mainLight);
-    return color;
+        Light mainLight = GetMainLight(toonLightingData.shadowCoord, toonLightingData.positionWS, 1);
+        float3 color = 0;
+        color += ToonLightHandling(toonLightingData, mainLight);
+        
+        #ifdef _ADDITIONAL_LIGHTS
+            uint additionalLightCount = GetAdditionalLightsCount();
+            for(uint i = 0; i < additionalLightCount; i++)
+            {
+                Light light = GetAdditionalLight(i, toonLightingData.positionWS, 1);
+                color += ToonLightHandling(toonLightingData, light);
+            }
+        #endif
+        return color;
     #endif
 
 }
