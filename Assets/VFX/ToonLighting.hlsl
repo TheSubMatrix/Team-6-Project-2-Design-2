@@ -13,8 +13,19 @@ struct ToonLightingData
     float smoothness;
     float4 shadowCoord;
     float3 positionWS;
+    float3 ambientOcclusion;
+    float3 bakedGI;
 };
 #ifndef SHADERGRAPH_PREVIEW
+float3 ToonGlobalIllumination(ToonLightingData toonLightingData)
+{
+    float3 indirectDiffuse = toonLightingData.albedo * toonLightingData.bakedGI * toonLightingData.ambientOcclusion;
+    float3 reflectionVector = reflect(-toonLightingData.viewDirectionWS, toonLightingData.normalWS);
+    float fresnel = Pow4(1- saturate(dot(toonLightingData.viewDirectionWS, toonLightingData.normalWS)));
+    float rampedFresnel = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, float2(fresnel, .5)).r;
+    float3 indirectSpecular = GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * (rampedFresnel / 10);
+    return indirectDiffuse + indirectSpecular;
+}
 float GetSmoothnessPower(float rawSmoothness)
 {
     return exp2(10* rawSmoothness + 1);
@@ -30,7 +41,7 @@ float3 ToonLightHandling(ToonLightingData toonLightingData, Light light)
     float specular = pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * diffuse;
     float specularIntensity = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, specular);
     float totalSpecular = lerp(0, specularIntensity * toonLightingData.specularColor, toonLightingData.smoothness * toonLightingData.smoothness) * light.shadowAttenuation;
-    return (toonLightingData.albedo * radiance * lightIntensity)+ totalSpecular + toonLightingData.ambientColor;
+    return (toonLightingData.albedo * radiance * lightIntensity)+ totalSpecular;
     
 }
 #endif
@@ -43,7 +54,8 @@ float3 CalculateToonLighting(ToonLightingData toonLightingData)
         return toonLightingData.albedo * intensity;
     #else
         Light mainLight = GetMainLight(toonLightingData.shadowCoord, toonLightingData.positionWS, 1);
-        float3 color = 0;
+        MixRealtimeAndBakedGI(mainLight, toonLightingData.normalWS, toonLightingData.bakedGI);
+        float3 color = ToonGlobalIllumination(toonLightingData);
         color += ToonLightHandling(toonLightingData, mainLight);
         
         #ifdef _ADDITIONAL_LIGHTS
@@ -60,7 +72,18 @@ float3 CalculateToonLighting(ToonLightingData toonLightingData)
 }
 
 //Wrapper for use in shader graph
-void CalculateToonLighting_float(float3 position, float3 albedo, float smoothness, float4 specularColor, float4 ambientColor, float3 worldspaceNormal, float3 viewDirection, UnityTexture2D rampTexture, UnitySamplerState sampler_rampTexture, out float3 finalCol)
+void CalculateToonLighting_float(
+    float3 position, 
+    float3 albedo, 
+    float smoothness,
+    float4 specularColor, 
+    float3 worldspaceNormal,
+    float3 viewDirection, 
+    UnityTexture2D rampTexture,
+    UnitySamplerState sampler_rampTexture,
+    float ambientOcclusion,
+    float2 lightmapUV,
+    out float3 finalCol)
 {
     ToonLightingData toonLightingData;
     toonLightingData.positionWS = position;
@@ -71,9 +94,10 @@ void CalculateToonLighting_float(float3 position, float3 albedo, float smoothnes
     toonLightingData.rampTexture = rampTexture;
     toonLightingData.sampler_rampTexture = sampler_rampTexture;
     toonLightingData.smoothness = smoothness;
-    toonLightingData.ambientColor = ambientColor;
+    toonLightingData.ambientOcclusion = ambientOcclusion;
     #ifdef SHADERGRAPH_PREVIEW
         toonLightingData.shadowCoord = 0;
+        toonLightingData.bakedGI = 0;
     #else
         float4 positionCS = TransformWorldToHClip(position);
         #if SHADOWS_SCREEN
@@ -81,6 +105,11 @@ void CalculateToonLighting_float(float3 position, float3 albedo, float smoothnes
         #else
             toonLightingData.shadowCoord = TransformWorldToShadowCoord(position);
         #endif
+        float calculatedLightmapUV;
+        OUTPUT_LIGHTMAP_UV(lightmapUV, unity_LightmapST, lightmapUV)
+        float3 vertexSH;
+        OUTPUT_SH(worldspaceNormal, vertexSH);
+        toonLightingData.bakedGI = SAMPLE_GI(calculatedLightmapUV, vertexSH, worldspaceNormal);
     #endif
     finalCol = CalculateToonLighting(toonLightingData);
 }

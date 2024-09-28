@@ -185,7 +185,9 @@ GameObject:
   - component: {fileID: 264605071}
   - component: {fileID: 264605076}
   - component: {fileID: 264605075}
-  m_Layer: 0
+  - component: {fileID: 264605078}
+  - component: {fileID: 264605077}
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -330,6 +332,59 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnDashEnded:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &264605077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264605070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c2158abfc3e4b488a20c5babf95038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &264605078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264605070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d201ecfaf49e7f4cb034e85cf3a6b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentHealth: 100
+  m_maxHealth: 100
+  m_useInvulnerabilityAfterDamage: 1
+  m_inulnerabilityAfterDamageTimer: 0.5
+  m_useArmor: 0
+  m_armor: 0
+  m_armorForFiftyPercentReduction: 50
+  m_isInvulnerable: 0
+  <OnDamage>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHeal>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRevive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameInvulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameVulnerable:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &330585543
@@ -781,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &994719623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,7 +1031,7 @@ GameObject:
   - component: {fileID: 1195442289}
   - component: {fileID: 1195442291}
   - component: {fileID: 1195442290}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1221,7 @@ GameObject:
   - component: {fileID: 1375734624}
   - component: {fileID: 1375734628}
   - component: {fileID: 1375734629}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1275,6 +1330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
+  currentPlayer: {fileID: 0}
 --- !u!195 &1375734629
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1376,7 +1432,7 @@ GameObject:
   - component: {fileID: 2064424425}
   - component: {fileID: 2064424424}
   - component: {fileID: 2064424423}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
