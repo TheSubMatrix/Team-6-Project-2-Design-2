@@ -6,6 +6,10 @@ public class RunManager : MonoBehaviour
 {
     GameObject player;
     public RunManager Instance{get; private set;}
+
+    //Reward handling for next scene
+    public BoonBase boonForReward;
+
     //Currency
     public uint coins = 0;
 
@@ -58,5 +62,13 @@ public class RunManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         player?.GetComponent<Health>()?.OnDeath.AddListener(OnPlayerDeath); 
         Debug.Log("Player setup complete");
+    }
+    public void UpdateSelectedReward(BoonBase boon)
+    {
+        boonForReward = boon;
+    }
+    public void GivePlayerReward()
+    {
+        player.GetComponent<PlayerBoonManager>().AddBoon(boonForReward);
     }
 }
