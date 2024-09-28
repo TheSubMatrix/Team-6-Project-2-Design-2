@@ -7,13 +7,16 @@ public class AIController : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
     AIBaseState currentState;
-    AIPatrolState patrolState = new AIPatrolState();
+    [HideInInspector] public GameObject currentPlayer = null;
+    
+    public AIChaseState chaseState = new AIChaseState();
+    public AIPatrolState patrolState = new AIPatrolState();
     void Awake()
     {
         currentState = patrolState;
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
-    void ChangeState(AIBaseState stateToChangeTo)
+    public void ChangeState(AIBaseState stateToChangeTo)
     {
         currentState.OnStateExit(this);
         currentState = stateToChangeTo;
@@ -22,5 +25,16 @@ public class AIController : MonoBehaviour
     private void Update()
     {
         currentState.OnStateUpdate(this);
+        if(currentPlayer != null && !Physics.Linecast(transform.position, currentPlayer.transform.position))
+        {
+            currentState.OnPlayerSeen(this);
+        }else
+        {
+            currentState.OnPlayerLost(this);
+        }
+    }
+    public void OnPlayerCollisionStateChanegd(GameObject player)
+    {
+        currentPlayer = player;
     }
 }

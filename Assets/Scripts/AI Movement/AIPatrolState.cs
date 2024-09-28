@@ -33,4 +33,8 @@ public class AIPatrolState : AIBaseState
         }
         return finalPosition;
     }
+    public override void OnPlayerSeen(AIController controller)
+    {
+        controller.ChangeState(controller.chaseState);
+    }
 }
