@@ -23,17 +23,20 @@ public class SceneTransitionManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             blackoutImage = GetComponentInChildren<Image>();
-            StartCoroutine(Fade(0));
+            StartCoroutine(FadeAsync(0));
         } 
     }
-
-    IEnumerator FadeTransition(string sceneToTransitionTo, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
+    public void TranasitionScene(string sceneToTransitionTo, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
     {
-        yield return Fade(1, timeForFadeIn, delayForFadeIn);
-        SceneManager.LoadScene(sceneToTransitionTo);
-        yield return Fade(0, timeForFadeOut, delayForFadeOut);
+        StartCoroutine(FadeTransitionAsync(sceneToTransitionTo, timeForFadeIn, delayForFadeIn, timeForFadeIn, timeForFadeOut));
     }
-    IEnumerator Fade(float desiredAlpha, float timeForFade = 0.5f, float delay = 0f)
+    IEnumerator FadeTransitionAsync(string sceneToTransitionTo, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
+    {
+        yield return FadeAsync(1, timeForFadeIn, delayForFadeIn);
+        SceneManager.LoadScene(sceneToTransitionTo);
+        yield return FadeAsync(0, timeForFadeOut, delayForFadeOut);
+    }
+    IEnumerator FadeAsync(float desiredAlpha, float timeForFade = 0.5f, float delay = 0f)
     {
         float elapsedTime = 0;
         float startingAlpha = blackoutImage.color.a;

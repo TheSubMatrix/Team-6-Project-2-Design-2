@@ -11,7 +11,7 @@ public class Health : MonoBehaviour, IDamagable, IHealable
         {
             return m_currentHealth;
         }
-        private set
+        set
         {
             CheckDeathState(m_currentHealth, value);
             m_currentHealth = value;
@@ -25,7 +25,7 @@ public class Health : MonoBehaviour, IDamagable, IHealable
         {
             return m_maxHealth;
         }
-        private set
+        set
         {
             m_maxHealth = value;
             CurrentHealth = (uint)Mathf.Clamp((int)CurrentHealth, 0, (int)value);
