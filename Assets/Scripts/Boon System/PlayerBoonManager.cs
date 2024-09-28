@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class PlayerBoonManager : MonoBehaviour
 {
-    public class BoonActivationEvent : UnityEvent<BoonActivation> { }
+    public class BoonActivationEvent : UnityEvent<BoonActivation, PlayerBoonManager> { }
     public BoonActivationEvent boonActivationEvent = new BoonActivationEvent();
     public enum BoonActivation
     {
@@ -25,16 +25,16 @@ public class PlayerBoonManager : MonoBehaviour
     }
     public void OnDashStarted()
     {
-        boonActivationEvent?.Invoke(BoonActivation.OnDashStarted);
+        boonActivationEvent?.Invoke(BoonActivation.OnDashStarted, this);
     }
     public void OnDashEnded()
     {
-        boonActivationEvent?.Invoke(BoonActivation.OnDashEnded);
+        boonActivationEvent?.Invoke(BoonActivation.OnDashEnded, this);
     }
 
     public void AddBoon(BoonBase boonToAdd)
     {
-        boonToAdd.OnBoonActivationEvent(BoonActivation.OnAdded);
+        boonToAdd.OnBoonActivationEvent(BoonActivation.OnAdded, this);
         boonActivationEvent.AddListener(boonToAdd.OnBoonActivationEvent);
         currentBoons.Add(boonToAdd);
     }

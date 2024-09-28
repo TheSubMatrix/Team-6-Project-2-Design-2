@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class BoonBase
 {
-    public abstract void OnBoonActivationEvent(PlayerBoonManager.BoonActivation boonActivation);
+    public abstract void OnBoonActivationEvent(PlayerBoonManager.BoonActivation boonActivation, PlayerBoonManager boonManager);
 }

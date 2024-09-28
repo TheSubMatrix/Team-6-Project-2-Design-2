@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DebugBoon : BoonBase
 {
-    public override void OnBoonActivationEvent(PlayerBoonManager.BoonActivation boonActivation)
+    public override void OnBoonActivationEvent(PlayerBoonManager.BoonActivation boonActivation, PlayerBoonManager boonManager)
     {
         if(boonActivation == PlayerBoonManager.BoonActivation.OnDashStarted)
         {
