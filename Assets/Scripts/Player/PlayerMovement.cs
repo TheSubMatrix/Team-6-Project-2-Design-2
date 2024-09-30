@@ -8,12 +8,14 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+
     Rigidbody m_rigidBody;
     Vector3 m_playerInput;
     Matrix4x4 m_cameraRotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(0,45,0));
     bool m_isDashing = false;
     bool m_isInDashCooldown = false;
-
+    [Header("References")]
+    [SerializeField]Animator playerModelAnimator;
     [Header("Movement Options")]
     [SerializeField] float m_movementSpeed = 6;
     [SerializeField] float acceleration;
@@ -65,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
             //Move the rigidbody based on our direction 
             m_rigidBody.velocity = Vector3.MoveTowards(m_rigidBody.velocity, desiredMovement, acceleration);
         }
+        float speed = new Vector3(m_rigidBody.velocity.x, 0, m_rigidBody.velocity.z).magnitude;
+        playerModelAnimator.SetFloat("Speed", speed / 6);
     }
     /// <summary>
     /// Dashes forward over the given period and distance
@@ -90,6 +94,10 @@ public class PlayerMovement : MonoBehaviour
         m_isDashing = false;
         OnDashEnded?.Invoke();
     }
+    /// <summary>
+    /// Resets the dash after the dash cooldown time
+    /// </summary>
+    /// <returns>Nothing</returns>
     IEnumerator ResetDashAfterCooldown()
     {
         m_isInDashCooldown = true;

@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Top Body Mask
+  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: J_Pelvis
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Neck1
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Neck1/J_Head1
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Neck1/J_Head1/J_Head2
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L/J_Wrist_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L/J_Wrist_L/J_Finger1_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L/J_Wrist_L/J_Finger1_L/J_Finger2_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L/J_Wrist_L/J_Finger1_L/J_Finger2_L/J_Finger3_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L/J_Wrist_L/J_Thumb1_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L/J_Wrist_L/J_Thumb1_L/J_Thumb2_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_L/J_Shoulder_L/J_Elbow_L/J_Wrist_L/J_Thumb1_L/J_Thumb2_L/J_Thumb3_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R/J_Wrist_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R/J_Wrist_R/J_Finger1_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R/J_Wrist_R/J_Finger1_R/J_Finger2_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R/J_Wrist_R/J_Finger1_R/J_Finger2_R/J_Finger3_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R/J_Wrist_R/J_Thumb1_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R/J_Wrist_R/J_Thumb1_R/J_Thumb2_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Spine1/J_Spine2/J_Spine3/J_Spine4/J_Collar_R/J_Shoulder_R/J_Elbow_R/J_Wrist_R/J_Thumb1_R/J_Thumb2_R/J_Thumhb3_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_L/J_Knee_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_L/J_Knee_L/J_Ankle_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_L/J_Knee_L/J_Ankle_L/J_Heel_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_L/J_Knee_L/J_Ankle_L/J_Ball_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_L/J_Knee_L/J_Ankle_L/J_Ball_L/J_Toe_L
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_R/J_Knee_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_R/J_Knee_R/J_Ankle_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_R/J_Knee_R/J_Ankle_R/J_Ankle_R1
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_R/J_Knee_R/J_Ankle_R/J_Ball_R
+    m_Weight: 1
+  - m_Path: J_Pelvis/J_Hip_R/J_Knee_R/J_Ankle_R/J_Ball_R/J_Toe_R
+    m_Weight: 1
+  - m_Path: MummyPlayer1
+    m_Weight: 1
+  - m_Path: Grp_ClothShit
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/CrotchCloth
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/CrotchCloth/transform2
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/ButtCloth
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/ButtCloth/transform3
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/ArmCloth_L
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/ArmCloth_L/transform4
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/ArmCloth_R
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/ArmCloth_R/transform5
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/HeadCloth
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/HeadCloth/transform6
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/MummyPlayer
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/MummyPlayer/transform7
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/nCloth5
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/nCloth4
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/nCloth3
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/nCloth2
+    m_Weight: 1
+  - m_Path: Grp_ClothShit/nCloth1
+    m_Weight: 1
