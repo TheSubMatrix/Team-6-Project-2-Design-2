@@ -21,10 +21,11 @@ float3 ToonGlobalIllumination(ToonLightingData toonLightingData)
 {
     float3 indirectDiffuse = toonLightingData.albedo * toonLightingData.bakedGI * toonLightingData.ambientOcclusion;
     float3 reflectionVector = reflect(-toonLightingData.viewDirectionWS, toonLightingData.normalWS);
-    float fresnel = Pow4(1- saturate(dot(toonLightingData.viewDirectionWS, toonLightingData.normalWS)));
+    float fresnel = Pow4(1- saturate(dot(normalize(toonLightingData.viewDirectionWS), normalize(toonLightingData.normalWS))));
     float rampedFresnel = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, float2(fresnel, .5)).r;
-    float3 indirectSpecular = GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * (rampedFresnel / 10);
-    return indirectDiffuse + indirectSpecular;
+    //float3 indirectSpecular = GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * (rampedFresnel / 10);
+    float3 fresnelColored = lerp(0, (rampedFresnel) * toonLightingData.specularColor, toonLightingData.smoothness * toonLightingData.smoothness);
+    return indirectDiffuse + fresnelColored;
 }
 float GetSmoothnessPower(float rawSmoothness)
 {
