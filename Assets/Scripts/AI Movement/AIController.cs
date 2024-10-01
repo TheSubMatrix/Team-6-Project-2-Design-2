@@ -37,4 +37,8 @@ public class AIController : MonoBehaviour
     {
         currentPlayer = player;
     }
+    public void OnDeath()
+    {
+        Destroy(gameObject);
+    }
 }

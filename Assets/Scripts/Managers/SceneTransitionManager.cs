@@ -21,7 +21,7 @@ public class SceneTransitionManager : MonoBehaviour
         else 
         { 
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(transform.root);
             blackoutImage = GetComponentInChildren<Image>();
             StartCoroutine(FadeAsync(0));
         } 

@@ -9,6 +9,7 @@ TagManager:
   - HelpButton
   - CreditsButton
   - ExitButton
+  - Sword
   layers:
   - Default
   - TransparentFX
