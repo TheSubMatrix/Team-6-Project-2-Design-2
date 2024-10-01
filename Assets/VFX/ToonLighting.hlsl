@@ -23,9 +23,8 @@ float3 ToonGlobalIllumination(ToonLightingData toonLightingData)
     float3 reflectionVector = reflect(-toonLightingData.viewDirectionWS, toonLightingData.normalWS);
     float fresnel = Pow4(1- saturate(dot(normalize(toonLightingData.viewDirectionWS), normalize(toonLightingData.normalWS))));
     float rampedFresnel = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, float2(fresnel, .5)).r;
-    //float3 indirectSpecular = GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * (rampedFresnel / 10);
-    float3 fresnelColored = lerp(0, (rampedFresnel) * toonLightingData.specularColor, toonLightingData.smoothness * toonLightingData.smoothness);
-    return indirectDiffuse + fresnelColored;
+    float3 indirectSpecular = (GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * rampedFresnel) / 5;
+    return indirectDiffuse + indirectSpecular;
 }
 float GetSmoothnessPower(float rawSmoothness)
 {
@@ -40,8 +39,8 @@ float3 ToonLightHandling(ToonLightingData toonLightingData, Light light)
     float3 radiance = light.color * (light.shadowAttenuation * light.distanceAttenuation);
     float specularDot = saturate(dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS)));
     float specular = pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * diffuse;
-    float specularIntensity = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, specular);
-    float totalSpecular = lerp(0, specularIntensity * toonLightingData.specularColor, toonLightingData.smoothness * toonLightingData.smoothness) * light.shadowAttenuation;
+    float specularIntensity = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, specular).r;
+    float3 totalSpecular = lerp(0, specularIntensity * toonLightingData.specularColor.xyz, toonLightingData.smoothness * toonLightingData.smoothness) * light.shadowAttenuation;
     return (toonLightingData.albedo * radiance * lightIntensity)+ totalSpecular;
     
 }
