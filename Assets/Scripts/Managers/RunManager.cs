@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RunManager : MonoBehaviour
 {
     GameObject player;
-    public RunManager Instance{get; private set;}
+    public static RunManager Instance{get; private set;}
 
     //Reward handling for next scene
     public BoonBase boonForReward;
@@ -18,8 +19,65 @@ public class RunManager : MonoBehaviour
 
     //Life Counting
     public uint maxPlayerLives = 0;
+    #region Scene Managment
+    [SerializeReference] uint roomsToCompleteBeforeNextFloor = 3;
+
+    //This is stupid, just serialize my shit unity :-(
+    [System.Serializable]
+    public class ListWrapperForSerialization<type>
+    {
+        public List<type> list = new List<type>();
+    }
+    uint m_currentFloor;
+    uint m_currentRoomInFloor = 0;
+    public uint CurrentRoomInFloor
+    {
+        get
+        {
+            return m_currentRoomInFloor;
+        }
+        set
+        {
+            if(value >= roomsToCompleteBeforeNextFloor)
+            {
+                CurrentFloor++;
+                m_currentRoomInFloor = 0;
+            }
+            else
+            {
+                m_currentRoomInFloor = value;
+            }
+        }
+    }
+    uint CurrentFloor 
+    {
+        get
+        {
+            return m_currentFloor;
+        }
+        set
+        {
+            m_currentFloor = value;
+            selectedSceneListToPickFrom = scenesToPickFrom[(int)value].list != null? scenesToPickFrom[(int)value].list : null;
+        }
+    }
+    [SerializeField] List<ListWrapperForSerialization<string>> scenesToPickFrom = new List<ListWrapperForSerialization<string>>();
+    List<string> selectedSceneListToPickFrom;
+    #endregion
+    public List<BoonBase> rewardPool = new List<BoonBase>();
     uint playerLives;
 
+    void UpdateSceneRewards()
+    {
+        GameObject[] rewardAwarders = GameObject.FindGameObjectsWithTag("Reward Selection Trigger");
+        if(rewardAwarders.Length > 0)
+        {
+            foreach(GameObject awarder in rewardAwarders)
+            {
+                awarder.GetComponent<RewardProvider>().boonToAward = rewardPool[UnityEngine.Random.Range(0, rewardPool.Count - 1)];
+            }
+        }
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -27,7 +85,9 @@ public class RunManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             playerLives = maxPlayerLives;
-            UpdatePlayerReference();
+            UpdateOnDeathListener();
+            SceneManager.activeSceneChanged += OnSceneChanged;
+            selectedSceneListToPickFrom = scenesToPickFrom[0].list;
         }
         else
         {
@@ -44,10 +104,18 @@ public class RunManager : MonoBehaviour
         {
             SceneTransitionManager.Instance?.TranasitionScene("Starting Scene");
             playerLives = maxPlayerLives;
-            player = GameObject.FindGameObjectWithTag("Player");
-            UpdatePlayerReference();
-            ApplyPermenantUpgrades();
         }
+    }
+    void OnSceneChanged(Scene current, Scene next)
+    {
+            GameObject foundPlayer = GameObject.FindGameObjectWithTag("Player");
+            if(foundPlayer != player)
+            {
+                player = foundPlayer;
+                UpdateOnDeathListener();
+                ApplyPermenantUpgrades();
+            }
+            UpdateSceneRewards();
     }
     void ApplyPermenantUpgrades()
     {
@@ -57,18 +125,12 @@ public class RunManager : MonoBehaviour
             playerHealth.MaxHealth = playerHealth.MaxHealth + ExtraHealth;
         }
     }
-    void UpdatePlayerReference()
+    void UpdateOnDeathListener()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         player?.GetComponent<Health>()?.OnDeath.AddListener(OnPlayerDeath); 
-        Debug.Log("Player setup complete");
     }
-    public void UpdateSelectedReward(BoonBase boon)
+    public string GetRandomSceneOnFloor()
     {
-        boonForReward = boon;
-    }
-    public void GivePlayerReward()
-    {
-        player.GetComponent<PlayerBoonManager>().AddBoon(boonForReward);
+        return selectedSceneListToPickFrom[Random.Range(0, selectedSceneListToPickFrom.Count - 1)];
     }
 }

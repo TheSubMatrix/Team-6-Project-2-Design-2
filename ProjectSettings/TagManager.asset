@@ -10,6 +10,7 @@ TagManager:
   - CreditsButton
   - ExitButton
   - Sword
+  - Reward Selection Trigger
   layers:
   - Default
   - TransparentFX

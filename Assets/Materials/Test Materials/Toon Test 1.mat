@@ -138,7 +138,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _Smoothness_Multiplier: 0.212
     - _SpecularHighlights: 1
-    - _Specular_Intensity: 0.355
+    - _Specular_Intensity: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
