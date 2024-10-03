@@ -70,11 +70,15 @@ public class RunManager : MonoBehaviour
     void UpdateSceneRewards()
     {
         GameObject[] rewardAwarders = GameObject.FindGameObjectsWithTag("Reward Selection Trigger");
-        if(rewardAwarders.Length > 0)
+        if(rewardAwarders.Length > 0 && rewardAwarders != null)
         {
             foreach(GameObject awarder in rewardAwarders)
             {
-                awarder.GetComponent<RewardProvider>().boonToAward = rewardPool[UnityEngine.Random.Range(0, rewardPool.Count - 1)];
+                RewardProvider rewardProvider = awarder.GetComponent<RewardProvider>();
+                if(rewardProvider != null && rewardPool.Count > 0)
+                {
+                    rewardProvider.boonToAward = rewardPool[Random.Range(0, rewardPool.Count - 1)];
+                }
             }
         }
     }
@@ -131,6 +135,10 @@ public class RunManager : MonoBehaviour
     }
     public string GetRandomSceneOnFloor()
     {
-        return selectedSceneListToPickFrom[Random.Range(0, selectedSceneListToPickFrom.Count - 1)];
+        if(selectedSceneListToPickFrom.Count > 0)
+        {
+            return selectedSceneListToPickFrom[Random.Range(0, selectedSceneListToPickFrom.Count - 1)];
+        }
+        return "";
     }
 }

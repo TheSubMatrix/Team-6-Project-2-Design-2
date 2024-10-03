@@ -411,6 +411,20 @@ MonoBehaviour:
   coins: 0
   ExtraHealth: 5
   maxPlayerLives: 0
+  roomsToCompleteBeforeNextFloor: 3
+  scenesToPickFrom:
+  - list:
+    - Floor 1 Variation 1
+    - Floor 1 Variation 2
+    - Floor 1 Variation 3
+  - list:
+    - Floor 2 Variation 1
+    - Floor 2 Variation 2
+    - Floor 2 Variation 3
+  - list:
+    - Floor 3 Variation 1
+    - Floor 3 Variation 2
+    - Floor 3 Variation 3
 --- !u!4 &159734016
 Transform:
   m_ObjectHideFlags: 0
