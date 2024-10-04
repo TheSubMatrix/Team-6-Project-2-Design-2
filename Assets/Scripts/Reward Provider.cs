@@ -4,10 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class RewardProvider : MonoBehaviour
 {
+    static bool shouldBeActive;
     public BoonBase boonToAward;
     void Awake()
     {
-
+        if(SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.OnSceneTransitionCompleted.AddListener(OnSceneTransitionCompleted);
+        }
     }
     /// <summary>
     /// OnTriggerEnter is called when the Collider other enters the trigger.
@@ -15,14 +19,19 @@ public class RewardProvider : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player" && shouldBeActive)
         {
             if(boonToAward != null)
             {
                 other.gameObject.GetComponent<PlayerBoonManager>()?.AddBoon(boonToAward);
             }
             RunManager.Instance.CurrentRoomInFloor++;
-            SceneTransitionManager.Instance?.TranasitionScene(RunManager.Instance.GetRandomSceneOnFloor());
+            SceneTransitionManager.Instance?.TransitionScene(RunManager.Instance.GetRandomSceneOnFloor(), true);
+            shouldBeActive = false;
         }
+    }
+    void OnSceneTransitionCompleted()
+    {
+        shouldBeActive = true;
     }
 }

@@ -6,22 +6,22 @@ public class MainMenuManager : MonoBehaviour
 {
     public void OnBeginButtonPressed()
     {
-        SceneTransitionManager.Instance?.TranasitionScene("Starting Room");
+        SceneTransitionManager.Instance?.TransitionScene("Starting Room");
     }
 
     public void OnCreditsButtonPressed()
     {
-        SceneTransitionManager.Instance?.TranasitionScene("CreditsScene");
+        SceneTransitionManager.Instance?.TransitionScene("CreditsScene");
     }
 
     public void OnHelpButtonPressed()
     {
-        SceneTransitionManager.Instance?.TranasitionScene("HelpScene");
+        SceneTransitionManager.Instance?.TransitionScene("HelpScene");
     }
 
     public void OnBackButtonPressed()
     {
-        SceneTransitionManager.Instance?.TranasitionScene("TitleScene");
+        SceneTransitionManager.Instance?.TransitionScene("TitleScene");
     }
 
     public void OnQuitButtonPressed()

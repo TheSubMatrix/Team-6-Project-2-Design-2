@@ -5,7 +5,7 @@ using UnityEngine;
 public class SmoothFollowPlayer : MonoBehaviour
 {
     [SerializeField] Vector3 positionOffset;
-    [SerializeField] Transform pivotToFollow;
+    [SerializeField] public Transform pivotToFollow;
     [SerializeField] float followSpeed = .125f;
 
     Vector3 velocity = new Vector3(0,0,0);
@@ -15,8 +15,11 @@ public class SmoothFollowPlayer : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        Vector3 desiredPosition = pivotToFollow.position + positionOffset;
-        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, followSpeed);
-        transform.position = smoothedPosition;
+        if(pivotToFollow != null)
+        {
+            Vector3 desiredPosition = pivotToFollow.position + positionOffset;
+            Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, followSpeed);
+            transform.position = smoothedPosition;
+        }
     }
 }

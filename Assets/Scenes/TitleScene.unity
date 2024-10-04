@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 250719614}
   m_Layer: 5
   m_Name: ExitButton
-  m_TagString: ExitButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 419369925}
   m_Layer: 5
   m_Name: HelpButton
-  m_TagString: HelpButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 1121143069}
   m_Layer: 5
   m_Name: CredtisButton
-  m_TagString: CreditsButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1395,7 +1395,7 @@ GameObject:
   - component: {fileID: 1535129893}
   m_Layer: 5
   m_Name: BeginButton
-  m_TagString: StartButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

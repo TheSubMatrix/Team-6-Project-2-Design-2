@@ -26,4 +26,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chambers/Floor 1/Floor 1 Variation 3/Floor 1 Variation 3.unity
     guid: cbdefd304958fdf4b9310167b34b067a
+  - enabled: 1
+    path: Assets/Scenes/Chambers/Floor 2/Floor 2 Variation 1/Floor 2 Variation 1.unity
+    guid: e7a07631f823de44882d2df85cd58e01
+  - enabled: 1
+    path: Assets/Scenes/Chambers/Floor 2/Floor 2 Variation 2/Floor 2 Variation 2.unity
+    guid: 77fc2356fa81458419e5fdb4d128680f
+  - enabled: 1
+    path: Assets/Scenes/Chambers/Floor 2/Floor 2 Variation 3/Floor 2 Variation 3.unity
+    guid: 9fdbacc965369584e89b5f32a5ab7b34
   m_configObjects: {}

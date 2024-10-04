@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class RunManager : MonoBehaviour
 {
-    GameObject player;
+    public GameObject player
+    {
+        get;
+        private set;
+    }
     public static RunManager Instance{get; private set;}
-
+    [SerializeField] public PlayerCallbackChannel callbackChannel;
     //Reward handling for next scene
     public BoonBase boonForReward;
 
@@ -58,7 +62,7 @@ public class RunManager : MonoBehaviour
         set
         {
             m_currentFloor = value;
-            selectedSceneListToPickFrom = scenesToPickFrom[(int)value].list != null? scenesToPickFrom[(int)value].list : null;
+            selectedSceneListToPickFrom = scenesToPickFrom[(int)value - 1].list != null? scenesToPickFrom[(int)value - 1].list : null;
         }
     }
     [SerializeField] List<ListWrapperForSerialization<string>> scenesToPickFrom = new List<ListWrapperForSerialization<string>>();
@@ -90,12 +94,14 @@ public class RunManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             playerLives = maxPlayerLives;
             UpdateOnDeathListener();
-            SceneManager.activeSceneChanged += OnSceneChanged;
+            SceneTransitionManager.Instance?.OnSceneTransitionCompleted.AddListener(OnSceneChanged);
+            callbackChannel.signalPlayerCallback?.Invoke();
             selectedSceneListToPickFrom = scenesToPickFrom[0].list;
+            callbackChannel.playerCallback.AddListener(OnPlayerGOCallbackRecieved);
         }
         else
         {
-            Destroy(this);
+            DestroyImmediate(gameObject);
         }
     }
     public void OnPlayerDeath()
@@ -106,16 +112,16 @@ public class RunManager : MonoBehaviour
         }
         else
         {
-            SceneTransitionManager.Instance?.TranasitionScene("Starting Scene");
+            SceneTransitionManager.Instance?.TransitionScene("Starting Scene");
             playerLives = maxPlayerLives;
         }
     }
-    void OnSceneChanged(Scene current, Scene next)
+    void OnSceneChanged()
     {
-            GameObject foundPlayer = GameObject.FindGameObjectWithTag("Player");
-            if(foundPlayer != player)
+            GameObject oldPlayer = player;
+            callbackChannel.signalPlayerCallback?.Invoke();
+            if(oldPlayer != player)
             {
-                player = foundPlayer;
                 UpdateOnDeathListener();
                 ApplyPermenantUpgrades();
             }
@@ -140,5 +146,9 @@ public class RunManager : MonoBehaviour
             return selectedSceneListToPickFrom[Random.Range(0, selectedSceneListToPickFrom.Count - 1)];
         }
         return "";
+    }
+    void OnPlayerGOCallbackRecieved(GameObject playerGO)
+    {
+        player = playerGO;
     }
 }

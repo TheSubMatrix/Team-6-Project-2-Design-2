@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SceneTransitionManager : MonoBehaviour
 {
+    [SerializeField] public UnityEvent OnSceneTransitionCompleted;
     public static SceneTransitionManager Instance { get; private set; }
     Image blackoutImage;
 
@@ -16,7 +18,7 @@ public class SceneTransitionManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) 
         { 
-            Destroy(this);
+            DestroyImmediate(gameObject);
         } 
         else 
         { 
@@ -26,15 +28,43 @@ public class SceneTransitionManager : MonoBehaviour
             StartCoroutine(FadeAsync(0));
         } 
     }
-    public void TranasitionScene(string sceneToTransitionTo, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
+    public void TransitionScene(string sceneToTransitionTo, bool transitionPlayer = false, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
     {
-        StartCoroutine(FadeTransitionAsync(sceneToTransitionTo, timeForFadeIn, delayForFadeIn, timeForFadeIn, timeForFadeOut));
+        StartCoroutine(FadeTransitionAsync(sceneToTransitionTo, transitionPlayer, timeForFadeIn, delayForFadeIn, timeForFadeIn, timeForFadeOut));
     }
-    IEnumerator FadeTransitionAsync(string sceneToTransitionTo, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
+
+    IEnumerator FadeTransitionAsync(string sceneToTransitionTo, bool transitionPlayer = false, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
     {
+        if(RunManager.Instance != null && transitionPlayer)
+        {
+            DontDestroyOnLoad(RunManager.Instance.player.gameObject);
+        }
         yield return FadeAsync(1, timeForFadeIn, delayForFadeIn);
         SceneManager.LoadScene(sceneToTransitionTo);
+        while(SceneManager.GetSceneByName(sceneToTransitionTo).isLoaded == false)
+        {
+            yield return null;
+        }
+        if(RunManager.Instance != null && RunManager.Instance.player != null && transitionPlayer)
+        {
+            GameObject foundSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn");
+            if(foundSpawnPoint != null)
+            {
+                RunManager.Instance.player.transform.position = foundSpawnPoint.transform.position;
+            }
+            SceneManager.MoveGameObjectToScene(RunManager.Instance.player, SceneManager.GetSceneByName(sceneToTransitionTo));
+            SmoothFollowPlayer[] smoothFollowPlayerScripts = FindObjectsOfType<SmoothFollowPlayer>();
+            if(smoothFollowPlayerScripts != null && smoothFollowPlayerScripts.Length > 0)
+            {
+                foreach(SmoothFollowPlayer i in smoothFollowPlayerScripts)
+                {
+                    i.pivotToFollow = RunManager.Instance.player.transform;
+                }
+            }
+        }
+        OnSceneTransitionCompleted?.Invoke();
         yield return FadeAsync(0, timeForFadeOut, delayForFadeOut);
+        Debug.Log("Complete");
     }
     IEnumerator FadeAsync(float desiredAlpha, float timeForFade = 0.5f, float delay = 0f)
     {

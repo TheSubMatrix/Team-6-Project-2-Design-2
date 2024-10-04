@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Unity Events")]
     [SerializeField] public UnityEvent OnDashStarted = new UnityEvent();
     [SerializeField] public UnityEvent OnDashEnded = new UnityEvent();
+    [SerializeField] PlayerCallbackChannel playerCallbackChannel;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         m_rigidBody = GetComponent<Rigidbody>();
+        playerCallbackChannel.signalPlayerCallback.AddListener(ReturnPlayerGO);
     }
 
     // Update is called once per frame
@@ -103,5 +105,9 @@ public class PlayerMovement : MonoBehaviour
         m_isInDashCooldown = true;
         yield return new WaitForSeconds(m_dashCooldown);
         m_isInDashCooldown = false;
+    }
+    void ReturnPlayerGO()
+    {
+        playerCallbackChannel.playerCallback?.Invoke(gameObject);
     }
 }

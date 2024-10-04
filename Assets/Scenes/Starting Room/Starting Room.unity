@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b21e8d7a26c9f43b8ba273be0e1804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  callbackChannel: {fileID: 11400000, guid: af237817065d3374b829263a59b2cd75, type: 2}
   coins: 0
   ExtraHealth: 5
   maxPlayerLives: 0
@@ -860,6 +861,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  playerCallbackChannel: {fileID: 11400000, guid: af237817065d3374b829263a59b2cd75,
+    type: 2}
 --- !u!114 &264605077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1959,6 +1962,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90edfe424dc63b44baf9d904dc0a26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1021589885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1021589886}
+  m_Layer: 0
+  m_Name: Player Spawn
+  m_TagString: Player Spawn
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1021589886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021589885}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.5, y: 0.5, z: 6.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1027355011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4580,3 +4614,4 @@ SceneRoots:
   - {fileID: 1462991514}
   - {fileID: 159734016}
   - {fileID: 451097198}
+  - {fileID: 1021589886}
