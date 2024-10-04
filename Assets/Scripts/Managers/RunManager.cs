@@ -62,7 +62,7 @@ public class RunManager : MonoBehaviour
         set
         {
             m_currentFloor = value;
-            selectedSceneListToPickFrom = scenesToPickFrom[(int)value - 1].list != null? scenesToPickFrom[(int)value - 1].list : null;
+            selectedSceneListToPickFrom = scenesToPickFrom[(int)value].list != null? scenesToPickFrom[(int)value].list : null;
         }
     }
     [SerializeField] List<ListWrapperForSerialization<string>> scenesToPickFrom = new List<ListWrapperForSerialization<string>>();
@@ -81,7 +81,7 @@ public class RunManager : MonoBehaviour
                 RewardProvider rewardProvider = awarder.GetComponent<RewardProvider>();
                 if(rewardProvider != null && rewardPool.Count > 0)
                 {
-                    rewardProvider.boonToAward = rewardPool[Random.Range(0, rewardPool.Count - 1)];
+                    rewardProvider.boonToAward = rewardPool[Random.Range(0, rewardPool.Count)];
                 }
             }
         }
@@ -143,7 +143,7 @@ public class RunManager : MonoBehaviour
     {
         if(selectedSceneListToPickFrom.Count > 0)
         {
-            return selectedSceneListToPickFrom[Random.Range(0, selectedSceneListToPickFrom.Count - 1)];
+            return selectedSceneListToPickFrom[Random.Range(0, selectedSceneListToPickFrom.Count)];
         }
         return "";
     }
