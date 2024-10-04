@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class RunManager : MonoBehaviour
 {
-    public GameObject player
+    public GameObject Player
     {
         get;
         private set;
     }
     public static RunManager Instance{get; private set;}
     [SerializeField] public PlayerCallbackChannel callbackChannel;
-    //Reward handling for next scene
-    public BoonBase boonForReward;
 
     //Currency
     public uint coins = 0;
@@ -33,8 +32,8 @@ public class RunManager : MonoBehaviour
         public List<type> list = new List<type>();
     }
     uint m_currentFloor;
-    uint m_currentRoomInFloor = 0;
-    public uint CurrentRoomInFloor
+    int m_currentRoomInFloor = -1;
+    public int CurrentRoomInFloor
     {
         get
         {
@@ -67,6 +66,10 @@ public class RunManager : MonoBehaviour
     }
     [SerializeField] List<ListWrapperForSerialization<string>> scenesToPickFrom = new List<ListWrapperForSerialization<string>>();
     List<string> selectedSceneListToPickFrom;
+    #endregion
+    #region Enemy Spawning
+    [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
+    [SerializeField] List<string> levelsToNotSpawnEnemies = new List<string>();
     #endregion
     public List<BoonBase> rewardPool = new List<BoonBase>();
     uint playerLives;
@@ -114,22 +117,38 @@ public class RunManager : MonoBehaviour
         {
             SceneTransitionManager.Instance?.TransitionScene("Starting Scene");
             playerLives = maxPlayerLives;
+            m_currentRoomInFloor = -1;
+            m_currentFloor = 0;
         }
     }
     void OnSceneChanged()
     {
-            GameObject oldPlayer = player;
+            GameObject oldPlayer = Player;
             callbackChannel.signalPlayerCallback?.Invoke();
-            if(oldPlayer != player)
+            if(oldPlayer != Player)
             {
                 UpdateOnDeathListener();
                 ApplyPermenantUpgrades();
             }
             UpdateSceneRewards();
+            if(!levelsToNotSpawnEnemies.Contains(SceneManager.GetActiveScene().name) )
+            {
+                if(enemyPrefabs.Count > 0)
+                {
+                    for(int i = 0; i < roomsToCompleteBeforeNextFloor * (CurrentFloor + 1) + (CurrentRoomInFloor + 1) - 3; i++)
+                    {
+                        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], GetRandomLocationOnNavmesh(), Quaternion.identity);
+                        Debug.Log(roomsToCompleteBeforeNextFloor * (CurrentFloor + 1) + (CurrentRoomInFloor + 1) - 3);
+                    }
+                }else
+                {
+                    Debug.LogWarning("No enemy prefabs in run manager");
+                }
+            }
     }
     void ApplyPermenantUpgrades()
     {
-        Health playerHealth = player?.GetComponent<Health>();
+        Health playerHealth = Player?.GetComponent<Health>();
         if(playerHealth != null)
         {
             playerHealth.MaxHealth = playerHealth.MaxHealth + ExtraHealth;
@@ -137,7 +156,7 @@ public class RunManager : MonoBehaviour
     }
     void UpdateOnDeathListener()
     {
-        player?.GetComponent<Health>()?.OnDeath.AddListener(OnPlayerDeath); 
+        Player?.GetComponent<Health>()?.OnDeath.AddListener(OnPlayerDeath); 
     }
     public string GetRandomSceneOnFloor()
     {
@@ -149,6 +168,25 @@ public class RunManager : MonoBehaviour
     }
     void OnPlayerGOCallbackRecieved(GameObject playerGO)
     {
-        player = playerGO;
+        Player = playerGO;
+    }
+    Vector3 GetRandomLocationOnNavmesh()
+    {
+        NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
+        int maxIndices = navMeshData.indices.Length - 3;
+        int firstVertexSelected = Random.Range(0, maxIndices);
+        int secondVertexSelected = Random.Range(0, maxIndices);
+        Vector3 point = navMeshData.vertices[navMeshData.indices[firstVertexSelected]];
+        Vector3 firstVertexPosition = navMeshData.vertices[navMeshData.indices[firstVertexSelected]];
+        Vector3 secondVertexPosition = navMeshData.vertices[navMeshData.indices[secondVertexSelected]];
+        if ((int)firstVertexPosition.x == (int)secondVertexPosition.x ||(int)firstVertexPosition.z == (int)secondVertexPosition.z)
+        {
+            point = GetRandomLocationOnNavmesh();
+        }
+        else
+        {
+            point = Vector3.Lerp(firstVertexPosition, secondVertexPosition,Random.Range(0.05f, 0.95f));
+        }
+        return point;
     }
 }

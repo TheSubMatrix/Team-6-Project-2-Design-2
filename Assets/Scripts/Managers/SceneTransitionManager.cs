@@ -37,7 +37,7 @@ public class SceneTransitionManager : MonoBehaviour
 {
     if(RunManager.Instance != null && transitionPlayer)
     {
-        DontDestroyOnLoad(RunManager.Instance.player.gameObject);
+        DontDestroyOnLoad(RunManager.Instance.Player.gameObject);
     }
     yield return FadeAsync(1, timeForFadeIn, delayForFadeIn);
     SceneManager.LoadScene(sceneToTransitionTo);
@@ -45,22 +45,22 @@ public class SceneTransitionManager : MonoBehaviour
     {
         yield return null;
     }
-    if(RunManager.Instance != null && RunManager.Instance.player != null && transitionPlayer)
+    if(RunManager.Instance != null && RunManager.Instance.Player != null && transitionPlayer)
     {
         GameObject foundSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn");
         if(foundSpawnPoint != null)
         {
-            RunManager.Instance.player.transform.position = foundSpawnPoint.transform.position;
+            RunManager.Instance.Player.transform.position = foundSpawnPoint.transform.position;
         }
         yield return null;
         yield return new WaitForEndOfFrame();
-        SceneManager.MoveGameObjectToScene(RunManager.Instance.player, SceneManager.GetActiveScene());
+        SceneManager.MoveGameObjectToScene(RunManager.Instance.Player, SceneManager.GetActiveScene());
         SmoothFollowPlayer[] smoothFollowPlayerScripts = FindObjectsOfType<SmoothFollowPlayer>();
         if(smoothFollowPlayerScripts != null && smoothFollowPlayerScripts.Length > 0)
         {
             foreach(SmoothFollowPlayer i in smoothFollowPlayerScripts)
             {
-                i.pivotToFollow = RunManager.Instance.player.transform;
+                i.pivotToFollow = RunManager.Instance.Player.transform;
             }
         }
     }
