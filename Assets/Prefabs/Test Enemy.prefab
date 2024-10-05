@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3320380933972479155}
   - component: {fileID: 8713562538816842719}
   - component: {fileID: 7109627346288192981}
+  - component: {fileID: 6882292798033049706}
   m_Layer: 2
   m_Name: Test Enemy
   m_TagString: Untagged
@@ -176,7 +177,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7107316538216514409}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c3f33ac4c6f8fe845b1a0695b6f1b124, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -205,6 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 8713562538816842719}
+  stillThreshold: 0.05
+  stunTime: 0.25
   currentPlayer: {fileID: 0}
 --- !u!195 &8713562538816842719
 NavMeshAgent:
@@ -281,3 +284,30 @@ MonoBehaviour:
   OnBecameVulnerable:
     m_PersistentCalls:
       m_Calls: []
+--- !u!54 &6882292798033049706
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7107316538216514409}
+  serializedVersion: 4
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0

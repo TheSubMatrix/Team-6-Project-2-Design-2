@@ -135,7 +135,7 @@ public class RunManager : MonoBehaviour
             {
                 if(enemyPrefabs.Count > 0)
                 {
-                    for(int i = 0; i < roomsToCompleteBeforeNextFloor * (CurrentFloor + 1) + (CurrentRoomInFloor + 1) - 3; i++)
+                    for(int i = 0; i < roomsToCompleteBeforeNextFloor * (CurrentFloor) + (CurrentRoomInFloor + 1); i++)
                     {
                         Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], GetRandomLocationOnNavmesh(), Quaternion.identity);
                         Debug.Log(roomsToCompleteBeforeNextFloor * (CurrentFloor + 1) + (CurrentRoomInFloor + 1) - 3);

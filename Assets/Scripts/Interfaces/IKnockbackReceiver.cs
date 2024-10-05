@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IKnockbackReceiver 
 {
-    public void TakeKnockback(Vector3 knockbackDirection, float knockbackForce);
+    public void TakeKnockback(Vector3 knockbackDirection);
 }

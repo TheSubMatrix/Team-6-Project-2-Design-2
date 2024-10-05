@@ -7,7 +7,8 @@ public class SwordSwingLogic : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>().enabled = true;
+        GameObject sword = GameObject.FindGameObjectWithTag("Sword");
+        sword.GetComponent<Collider>().enabled = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,7 +20,8 @@ public class SwordSwingLogic : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>().enabled = false;
+        GameObject sword = GameObject.FindGameObjectWithTag("Sword");
+        sword.GetComponent<Collider>().enabled = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
