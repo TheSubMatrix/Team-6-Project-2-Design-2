@@ -380,11 +380,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b21e8d7a26c9f43b8ba273be0e1804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  callbackChannel: {fileID: 0}
   coins: 0
   ExtraHealth: 5
   maxPlayerLives: 0
   roomsToCompleteBeforeNextFloor: 3
   scenesToPickFrom: []
+  enemyPrefabs: []
+  levelsToNotSpawnEnemies: []
 --- !u!4 &159734016
 Transform:
   m_ObjectHideFlags: 0
@@ -1279,7 +1282,7 @@ Transform:
   m_GameObject: {fileID: 1091972405}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: -6.25, z: 0}
+  m_LocalPosition: {x: 1.25, y: -5.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

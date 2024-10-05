@@ -11,19 +11,27 @@ struct ToonLightingData
     UnitySamplerState sampler_rampTexture;
     float3 albedo;
     float smoothness;
+    float metalness;
     float4 shadowCoord;
     float3 positionWS;
     float3 ambientOcclusion;
     float3 bakedGI;
 };
 #ifndef SHADERGRAPH_PREVIEW
+float Quantize(float valueToQuantize, float bandCount)
+{
+    return (floor(valueToQuantize * (bandCount - 1) + 0.5) / (bandCount - 1));
+}
+float Remap(float v, float minOld, float maxOld, float minNew, float maxNew) {
+    return minNew + (v-minOld) * (maxNew - minNew) / (maxOld-minOld);
+}
 float3 ToonGlobalIllumination(ToonLightingData toonLightingData)
 {
     float3 indirectDiffuse = toonLightingData.albedo * toonLightingData.bakedGI * toonLightingData.ambientOcclusion;
     float3 reflectionVector = reflect(-toonLightingData.viewDirectionWS, toonLightingData.normalWS);
     float fresnel = Pow4(1- saturate(dot(normalize(toonLightingData.viewDirectionWS), normalize(toonLightingData.normalWS))));
-    float rampedFresnel = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, float2(fresnel, .5)).r;
-    float3 indirectSpecular = (GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * rampedFresnel) / 5;
+    float rampedFresnel = Quantize(fresnel, 15);
+    float3 indirectSpecular = (GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * rampedFresnel);
     return indirectDiffuse + indirectSpecular;
 }
 float GetSmoothnessPower(float rawSmoothness)
@@ -33,15 +41,14 @@ float GetSmoothnessPower(float rawSmoothness)
 
 float3 ToonLightHandling(ToonLightingData toonLightingData, Light light)
 {
-    float diffuse = dot(toonLightingData.normalWS, light.direction);
-    float2 rampUV = float2(1 - (diffuse * 0.5 + 0.5), 0.5);
-    float lightIntensity = SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, rampUV).r;
+    float diffuse = saturate(dot(toonLightingData.normalWS, light.direction));
+    float lightIntensity = Quantize(diffuse, 5);
     float3 radiance = light.color * (light.shadowAttenuation * light.distanceAttenuation);
     float specularDot = saturate(dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS)));
     float specular = pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * diffuse;
-    float specularIntensity = 1 - SAMPLE_TEXTURE2D(toonLightingData.rampTexture, toonLightingData.sampler_rampTexture, specular).r;
-    float3 totalSpecular = lerp(0, specularIntensity * toonLightingData.specularColor.xyz, toonLightingData.smoothness * toonLightingData.smoothness) * light.shadowAttenuation;
-    return (toonLightingData.albedo * radiance * lightIntensity)+ totalSpecular;
+    float specularIntensity = Quantize(specular, Remap(toonLightingData.metalness, 0, 1, 7, 2));
+    float3 totalSpecular = specularIntensity * light.shadowAttenuation * toonLightingData.specularColor;
+    return (toonLightingData.albedo * radiance * (lightIntensity + totalSpecular));
     
 }
 #endif
@@ -76,6 +83,7 @@ void CalculateToonLighting_float(
     float3 position, 
     float3 albedo, 
     float smoothness,
+    float metalness,
     float4 specularColor, 
     float3 worldspaceNormal,
     float3 viewDirection, 
@@ -94,6 +102,7 @@ void CalculateToonLighting_float(
     toonLightingData.rampTexture = rampTexture;
     toonLightingData.sampler_rampTexture = sampler_rampTexture;
     toonLightingData.smoothness = smoothness;
+    toonLightingData.metalness = metalness;
     toonLightingData.ambientOcclusion = ambientOcclusion;
     #ifdef SHADERGRAPH_PREVIEW
         toonLightingData.shadowCoord = 0;
