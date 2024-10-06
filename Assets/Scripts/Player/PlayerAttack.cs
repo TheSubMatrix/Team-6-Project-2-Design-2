@@ -13,14 +13,17 @@ public class PlayerAttack : MonoBehaviour
         {
             if(anim.GetCurrentAnimatorStateInfo(1).IsName("No Extra Motion") && !anim.IsInTransition(1))
             {
+                SoundManager.instance?.PlaySound(transform, SoundManager.instance.FindSoundInfoByName("Sword Swoosh"));
                 anim.SetTrigger("Sword Hit 1");
             }
             if(anim.GetCurrentAnimatorStateInfo(1).IsName("Sword Swing 1") && !anim.IsInTransition(1))
             {
+                SoundManager.instance?.PlaySound(transform, SoundManager.instance.FindSoundInfoByName("Sword Swoosh"));
                 anim.SetTrigger("Sword Hit 2");
             }
             if(anim.GetCurrentAnimatorStateInfo(1).IsName("Sword Swing 2") && !anim.IsInTransition(1))
             {
+                SoundManager.instance?.PlaySound(transform, SoundManager.instance.FindSoundInfoByName("Sword Swoosh"));
                 anim.SetTrigger("Sword Hit 3");
             }
         }

@@ -27,10 +27,10 @@ float Remap(float v, float minOld, float maxOld, float minNew, float maxNew) {
 }
 float3 ToonGlobalIllumination(ToonLightingData toonLightingData)
 {
-    float3 indirectDiffuse = toonLightingData.albedo * toonLightingData.bakedGI * toonLightingData.ambientOcclusion;
+    float3 indirectDiffuse = toonLightingData.albedo * Quantize(toonLightingData.bakedGI, 5) * toonLightingData.ambientOcclusion;
     float3 reflectionVector = reflect(-toonLightingData.viewDirectionWS, toonLightingData.normalWS);
     float fresnel = Pow4(1- saturate(dot(normalize(toonLightingData.viewDirectionWS), normalize(toonLightingData.normalWS))));
-    float rampedFresnel = Quantize(fresnel, 15);
+    float rampedFresnel = Quantize(fresnel, 7);
     float3 indirectSpecular = (GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * rampedFresnel);
     return indirectDiffuse + indirectSpecular;
 }
@@ -46,7 +46,7 @@ float3 ToonLightHandling(ToonLightingData toonLightingData, Light light)
     float3 radiance = light.color * (light.shadowAttenuation * light.distanceAttenuation);
     float specularDot = saturate(dot(toonLightingData.normalWS, normalize(light.direction + toonLightingData.viewDirectionWS)));
     float specular = pow(specularDot, GetSmoothnessPower(toonLightingData.smoothness)) * diffuse;
-    float specularIntensity = Quantize(specular, Remap(toonLightingData.metalness, 0, 1, 7, 2));
+    float specularIntensity = Quantize(specular, Remap(toonLightingData.metalness, 0, 1, 5, 2));
     float3 totalSpecular = specularIntensity * light.shadowAttenuation * toonLightingData.specularColor;
     return (toonLightingData.albedo * radiance * (lightIntensity + totalSpecular));
     

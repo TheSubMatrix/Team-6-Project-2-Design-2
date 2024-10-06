@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 using UnityEngine.Pool;
 public class SoundManager : MonoBehaviour
 {
-    float m_soundVolume;
+    float m_soundVolume = 1;
     public float SoundVolume
     {
         get
@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
             m_soundVolume = value;
         }
     }
-    float m_musicVolume;
+    float m_musicVolume = 1;
     public float MusicVolume
     {
         get

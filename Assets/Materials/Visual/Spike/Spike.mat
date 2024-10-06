@@ -126,7 +126,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Extra_Metallic: 0.46
-    - _Extra_Smoothness: -0.58
+    - _Extra_Smoothness: -0.83
     - _Fresnel_Power: 3.07
     - _Fresnel_Strength: 0.291
     - _GlossMapScale: 0
