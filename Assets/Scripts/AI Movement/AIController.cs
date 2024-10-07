@@ -10,46 +10,44 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     [Header("Knockback Settings")]
     [Range(0.001f, 0.1f)][SerializeField] float stillThreshold = 0.05f;
     [SerializeField] float stunTime = 0.25f;
-
+    [Header("AI Settings")]
+    [SerializeField] float timeBetweenNavigationUpdates = 0.5f;
+    [SerializeField] LayerMask visibilityLayerMask;
     AIBaseState currentState;
-    [HideInInspector] public GameObject currentPlayer = null;
     Rigidbody rb;    
     public AIChaseState chaseState = new AIChaseState();
     public AIPatrolState patrolState = new AIPatrolState();
     bool stunnedByKnockback = false;
-
+    GameObject currentPlayerReference;
     void Awake()
     {
         currentState = patrolState;
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(UpdateNavigationAsync());
     }
     public void ChangeState(AIBaseState stateToChangeTo)
     {
         currentState.OnStateExit(this);
         currentState = stateToChangeTo;
+        currentState.UpdatePlayerReference(currentPlayerReference);
         currentState.OnStateEntered(this);
     }
     private void Update()
     {
-        if(!stunnedByKnockback)
-        {
-            currentState.OnStateUpdate(this);
-            if(currentPlayer != null && !Physics.Linecast(transform.position, currentPlayer.transform.position))
-            {
-                currentState.OnPlayerSeen(this);
-            }
-            else
-            {
-                currentState.OnPlayerLost(this);
-            }
-        }
+        currentState.OnStateUpdate(this);
     }
-    public void OnPlayerCollisionStateChanegd(GameObject player)
+    public void OnPlayerCollisionStateChanegd(GameObject player, bool isInRange)
     {
-        if(!stunnedByKnockback)
+        currentPlayerReference = player;
+        currentState.UpdatePlayerReference(player);
+        if(isInRange && !Physics.Linecast(transform.position, player.transform.position, visibilityLayerMask))
         {
-            currentPlayer = player;
+            currentState.OnPlayerVisibilityUpdated(this, true);
+            Debug.Log("Player Seen");
+        }else
+        {
+            currentState.OnPlayerVisibilityUpdated(this, false);
         }
     }
     public void OnDeath()
@@ -61,10 +59,19 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     {
         if(!stunnedByKnockback)
         {
-            StartCoroutine(OnKnockbackTaken(knockbackDirection));
+            StartCoroutine(OnKnockbackTakenAsync(knockbackDirection));
         }
     }
-    IEnumerator OnKnockbackTaken(Vector3 knockbackDirection)
+    IEnumerator UpdateNavigationAsync()
+    {
+        if(!stunnedByKnockback)
+        {
+            currentState.OnUpdateNavigation(this);
+        }
+        yield return new WaitForSeconds(timeBetweenNavigationUpdates);
+        StartCoroutine(UpdateNavigationAsync());
+    }
+    IEnumerator OnKnockbackTakenAsync(Vector3 knockbackDirection)
     {
         yield return null;
         stunnedByKnockback = true;

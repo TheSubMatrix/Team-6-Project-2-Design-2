@@ -4,15 +4,15 @@ using UnityEngine;
 
 public abstract class AIBaseState
 {
+    public void UpdatePlayerReference(GameObject playerReference)
+    {
+        Player = playerReference;
+    }
+    public bool isPlayerVisible;
+    public GameObject Player;
     public abstract void OnStateEntered(AIController controller);
     public abstract void OnStateUpdate(AIController controller);
     public abstract void OnStateExit(AIController controller);
-    public virtual void OnPlayerSeen(AIController controller)
-    {
-
-    }
-    public virtual void OnPlayerLost(AIController controller)
-    {
-
-    }
+    public abstract void OnUpdateNavigation(AIController controller);
+    public abstract void OnPlayerVisibilityUpdated(AIController controller, bool newVisibilityState);
 }

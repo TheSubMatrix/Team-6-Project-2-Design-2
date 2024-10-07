@@ -5,6 +5,30 @@ using UnityEngine.AI;
 
 public class AIPatrolState : AIBaseState
 {
+    const float DELAY_BEFORE_PLAYER_FOUND = .5f;
+    bool awaitPlayerSightDispatched = false;
+    bool playerReachedDestination = false;
+    Coroutine awaitPlayerSight;
+
+    public override void OnPlayerVisibilityUpdated(AIController controller, bool newVisibilityState)
+    {
+        if(newVisibilityState && !awaitPlayerSightDispatched)
+        {
+            awaitPlayerSight = controller.StartCoroutine(AwaitPlayerSightAsync(controller));
+            awaitPlayerSightDispatched = true;
+            Debug.Log("dispatched Wait routine");
+        }
+        else if(!isPlayerVisible)
+        {
+            if(awaitPlayerSight != null)
+            {
+                controller.StopCoroutine(awaitPlayerSight);
+                awaitPlayerSight = null;
+            }
+            awaitPlayerSightDispatched = false;
+        }
+    }
+
     public override void OnStateEntered(AIController controller)
     {
         
@@ -12,29 +36,41 @@ public class AIPatrolState : AIBaseState
 
     public override void OnStateExit(AIController controller)
     {
-        
+        awaitPlayerSight = null;
+        awaitPlayerSightDispatched = false;
     }
 
     public override void OnStateUpdate(AIController controller)
     {
-        if(!controller.navMeshAgent.hasPath || controller.navMeshAgent.velocity.sqrMagnitude <= controller.navMeshAgent.stoppingDistance)
+
+        if
+        (
+            controller.navMeshAgent.remainingDistance != Mathf.Infinity && 
+            controller.navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete &&
+            controller.navMeshAgent.remainingDistance <= controller.navMeshAgent.stoppingDistance
+        )
         {
-            controller.navMeshAgent.SetDestination(RandomNavmeshLocation(controller, 20));
-        }   
-    }
-    Vector3 RandomNavmeshLocation(AIController controller, float radius) {
-        Vector3 randomDirection = Random.insideUnitSphere * radius;
-        randomDirection += controller.transform.position;
-        NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1)) 
-        {
-            finalPosition = hit.position;            
+            playerReachedDestination = true;
         }
-        return finalPosition;
+        else
+        {
+            playerReachedDestination = false;
+        }
     }
-    public override void OnPlayerSeen(AIController controller)
+
+    public override void OnUpdateNavigation(AIController controller)
     {
+        if(playerReachedDestination)
+        {
+            controller.navMeshAgent.SetDestination(StaticMethods.GetRandomLocationOnNavmesh());
+            Debug.Log("Update Destination");
+        }  
+    }
+        IEnumerator AwaitPlayerSightAsync(AIController controller)
+    {
+        yield return new WaitForSeconds(DELAY_BEFORE_PLAYER_FOUND);
         controller.ChangeState(controller.chaseState);
+        awaitPlayerSightDispatched = false;
+        Debug.Log("Change State");
     }
 }

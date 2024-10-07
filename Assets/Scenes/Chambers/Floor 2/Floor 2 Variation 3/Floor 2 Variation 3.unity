@@ -380,11 +380,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b21e8d7a26c9f43b8ba273be0e1804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  callbackChannel: {fileID: 0}
   coins: 0
   ExtraHealth: 5
   maxPlayerLives: 0
   roomsToCompleteBeforeNextFloor: 3
   scenesToPickFrom: []
+  enemyPrefabs: []
+  levelsToNotSpawnEnemies: []
 --- !u!4 &159734016
 Transform:
   m_ObjectHideFlags: 0

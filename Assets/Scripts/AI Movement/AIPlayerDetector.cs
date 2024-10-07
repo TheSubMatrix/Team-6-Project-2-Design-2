@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class AIPlayerDetector : MonoBehaviour
 {
-    [SerializeField] UnityEvent<GameObject> playerDetectionUpdated;
+    [SerializeField] UnityEvent<GameObject, bool> playerDetectionUpdated;
     /// <summary>
     /// OnTriggerEnter is called when the Collider other enters the trigger.
     /// </summary>
@@ -15,7 +15,7 @@ public class AIPlayerDetector : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            playerDetectionUpdated?.Invoke(other.gameObject);
+            playerDetectionUpdated?.Invoke(other.gameObject, true);
         }
     }
     /// <summary>
@@ -26,7 +26,7 @@ public class AIPlayerDetector : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            playerDetectionUpdated?.Invoke(null);
+            playerDetectionUpdated?.Invoke(other.gameObject, false);
         }
     }
 }

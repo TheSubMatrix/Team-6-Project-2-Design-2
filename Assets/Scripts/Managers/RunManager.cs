@@ -137,7 +137,7 @@ public class RunManager : MonoBehaviour
                 {
                     for(int i = 0; i < roomsToCompleteBeforeNextFloor * (CurrentFloor) + (CurrentRoomInFloor + 1); i++)
                     {
-                        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], GetRandomLocationOnNavmesh(), Quaternion.identity);
+                        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], StaticMethods.GetRandomLocationOnNavmesh(), Quaternion.identity);
                         Debug.Log(roomsToCompleteBeforeNextFloor * (CurrentFloor + 1) + (CurrentRoomInFloor + 1) - 3);
                     }
                 }else
@@ -170,23 +170,5 @@ public class RunManager : MonoBehaviour
     {
         Player = playerGO;
     }
-    Vector3 GetRandomLocationOnNavmesh()
-    {
-        NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
-        int maxIndices = navMeshData.indices.Length - 3;
-        int firstVertexSelected = Random.Range(0, maxIndices);
-        int secondVertexSelected = Random.Range(0, maxIndices);
-        Vector3 point = navMeshData.vertices[navMeshData.indices[firstVertexSelected]];
-        Vector3 firstVertexPosition = navMeshData.vertices[navMeshData.indices[firstVertexSelected]];
-        Vector3 secondVertexPosition = navMeshData.vertices[navMeshData.indices[secondVertexSelected]];
-        if ((int)firstVertexPosition.x == (int)secondVertexPosition.x ||(int)firstVertexPosition.z == (int)secondVertexPosition.z)
-        {
-            point = GetRandomLocationOnNavmesh();
-        }
-        else
-        {
-            point = Vector3.Lerp(firstVertexPosition, secondVertexPosition,Random.Range(0.05f, 0.95f));
-        }
-        return point;
-    }
+
 }
