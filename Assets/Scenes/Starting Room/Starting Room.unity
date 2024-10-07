@@ -728,6 +728,23 @@ MonoBehaviour:
     _reverbZoneMix: 1
     _minDistance: 1
     _maxDistance: 500
+  - Name: Level1Music
+    VolumeMode: 1
+    AudioClip: {fileID: 8300000, guid: d1518bb52d3c3b344b5dce9b1644dc3a, type: 3}
+    AudioMixerGroup: {fileID: 0}
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    PlayOnAwake: 0
+    Loop: 0
+    _priority: 128
+    _volume: 1
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMix: 1
+    _minDistance: 1
+    _maxDistance: 500
 --- !u!4 &437821308
 Transform:
   m_ObjectHideFlags: 0
