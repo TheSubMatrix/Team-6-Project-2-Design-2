@@ -31,7 +31,7 @@ float3 ToonGlobalIllumination(ToonLightingData toonLightingData)
     float3 reflectionVector = reflect(-toonLightingData.viewDirectionWS, toonLightingData.normalWS);
     float fresnel = Pow4(1- saturate(dot(normalize(toonLightingData.viewDirectionWS), normalize(toonLightingData.normalWS))));
     float rampedFresnel = Quantize(fresnel, 2);
-    float3 indirectSpecular = (GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * rampedFresnel);
+    float3 indirectSpecular = (GlossyEnvironmentReflection(reflectionVector, RoughnessToPerceptualRoughness(1-toonLightingData.smoothness), toonLightingData.ambientOcclusion) * rampedFresnel) / 5;
     return indirectDiffuse + indirectSpecular;
 }
 float GetSmoothnessPower(float rawSmoothness)
