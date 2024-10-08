@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider)), System.Serializable]
 public class AIController : MonoBehaviour, IKnockbackReceiver
 {
     [Header("References")]
@@ -13,29 +14,40 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     [Header("AI Settings")]
     [SerializeField] float timeBetweenNavigationUpdates = 0.5f;
     [SerializeField] LayerMask visibilityLayerMask;
-    AIBaseState currentState;
-    Rigidbody rb;    
-    public AIChaseState chaseState = new AIChaseState();
-    public AIPatrolState patrolState = new AIPatrolState();
+    protected AIBaseState currentState;
+    Rigidbody rb;
+    [field:SerializeField] public List<AIBaseState> aiStates {get; private set;} = new List<AIBaseState>();
     bool stunnedByKnockback = false;
     GameObject currentPlayerReference;
-    void Awake()
+    protected virtual void Awake()
     {
-        currentState = patrolState;
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         StartCoroutine(UpdateNavigationAsync());
     }
-    public void ChangeState(AIBaseState stateToChangeTo)
+    public void ChangeState(string stateName)
     {
-        currentState.OnStateExit(this);
-        currentState = stateToChangeTo;
-        currentState.UpdatePlayerReference(currentPlayerReference);
-        currentState.OnStateEntered(this);
+        AIBaseState stateToTransitionTo = GetState(stateName);
+        if(stateToTransitionTo != null)
+        {
+            Debug.Log(currentState.Name);
+            currentState.OnStateExit(this);
+            currentState = stateToTransitionTo;
+            currentState.UpdatePlayerReference(currentPlayerReference);
+            currentState.OnStateEntered(this);
+            Debug.Log(currentState.Name);
+        }
+        else
+        {
+            Debug.LogWarning("State not transitioned to because it could not be found");
+        }
     }
     private void Update()
     {
-        currentState.OnStateUpdate(this);
+        if(!stunnedByKnockback)
+        {
+            currentState.OnStateUpdate(this);
+        }
     }
     public void OnPlayerCollisionStateChanegd(GameObject player, bool isInRange)
     {
@@ -44,8 +56,8 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
         if(isInRange && !Physics.Linecast(transform.position, player.transform.position, visibilityLayerMask))
         {
             currentState.OnPlayerVisibilityUpdated(this, true);
-            Debug.Log("Player Seen");
-        }else
+        }
+        else
         {
             currentState.OnPlayerVisibilityUpdated(this, false);
         }
@@ -90,5 +102,14 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
         navMeshAgent.enabled = true;
         stunnedByKnockback = false;
         yield return null;
+    }
+    protected AIBaseState GetState(string stateName)
+    {
+        AIBaseState[] validStates = aiStates.Where(state => state.Name == stateName).ToArray();
+        if(validStates.Length > 0)
+        {
+            return validStates[0];
+        }
+        return null;
     }
 }

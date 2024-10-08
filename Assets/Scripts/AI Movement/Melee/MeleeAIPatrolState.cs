@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIPatrolState : AIBaseState
+public class MeleeAIPatrolState : AIBaseState
 {
+    public MeleeAIPatrolState(string name) : base(name)
+    {
+        
+    }
     const float DELAY_BEFORE_PLAYER_FOUND = .5f;
     bool awaitPlayerSightDispatched = false;
     bool playerReachedDestination = false;
@@ -69,8 +73,7 @@ public class AIPatrolState : AIBaseState
         IEnumerator AwaitPlayerSightAsync(AIController controller)
     {
         yield return new WaitForSeconds(DELAY_BEFORE_PLAYER_FOUND);
-        controller.ChangeState(controller.chaseState);
+        controller.ChangeState("Chase");
         awaitPlayerSightDispatched = false;
-        Debug.Log("Change State");
     }
 }

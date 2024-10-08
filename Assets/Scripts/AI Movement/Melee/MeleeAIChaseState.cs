@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AIChaseState : AIBaseState
+[System.Serializable]
+public class MeleeAIChaseState : AIBaseState
 {
+    public MeleeAIChaseState(string name) : base(name)
+    {
+
+    }
     const float DELAY_BEFORE_PLAYER_LOST = 5;
     bool awaitPlayerLossSightDispatched = false;
     Coroutine awaitPlayerLossSight;
@@ -50,7 +54,7 @@ public class AIChaseState : AIBaseState
     IEnumerator AwaitPlayerLossSightAsync(AIController controller)
     {
         yield return new WaitForSeconds(DELAY_BEFORE_PLAYER_LOST);
-        controller.ChangeState(controller.patrolState);
+        controller.ChangeState("Patrol");
         awaitPlayerLossSightDispatched = false;
         awaitPlayerLossSight = null;
         Debug.Log("Player Lost");

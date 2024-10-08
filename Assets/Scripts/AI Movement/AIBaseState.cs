@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// The base state required for an AI State
+/// </summary>
+[System.Serializable]
 public abstract class AIBaseState
 {
+    public AIBaseState(string stateName)
+    {
+        Name = stateName;
+    }
+    public string Name{get; private set;}
     public void UpdatePlayerReference(GameObject playerReference)
     {
         Player = playerReference;
