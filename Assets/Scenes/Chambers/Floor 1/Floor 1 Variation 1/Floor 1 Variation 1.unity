@@ -1438,6 +1438,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obelisk (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6244454609956831494, guid: ee1e1d58dfc84a748a52ce66638baa5b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e632e412c4041494380788c545a3b40f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2527,6 +2532,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obelisk (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6244454609956831494, guid: ee1e1d58dfc84a748a52ce66638baa5b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e632e412c4041494380788c545a3b40f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3595,6 +3605,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawerChest (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5987779977402081847, guid: 23b5d3930ad995549af282d5779d6326,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5166ab4e8dc123f429f322cac6a79dcf, type: 2}
+    - target: {fileID: 5987779977402081847, guid: 23b5d3930ad995549af282d5779d6326,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31843a2d76911154899e85bd9f93420a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5209,6 +5229,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawerChest
       objectReference: {fileID: 0}
+    - target: {fileID: 5987779977402081847, guid: 23b5d3930ad995549af282d5779d6326,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5166ab4e8dc123f429f322cac6a79dcf, type: 2}
+    - target: {fileID: 5987779977402081847, guid: 23b5d3930ad995549af282d5779d6326,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31843a2d76911154899e85bd9f93420a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5277,6 +5307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obelisk
       objectReference: {fileID: 0}
+    - target: {fileID: 6244454609956831494, guid: ee1e1d58dfc84a748a52ce66638baa5b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e632e412c4041494380788c545a3b40f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
