@@ -16,7 +16,7 @@ public class AIPlayerDetector : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             playerDetectionUpdated?.Invoke(other.gameObject, true);
-            Debug.Log(other.gameObject);
+
         }
     }
     /// <summary>

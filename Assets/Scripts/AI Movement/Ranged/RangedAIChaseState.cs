@@ -19,7 +19,7 @@ public class RangedAIChaseState : AIBaseState
 
     public override void OnPlayerVisibilityUpdated(AIController controller, bool newVisibilityState)
     {
-        if(!newVisibilityState && !awaitPlayerLossSightDispatched)
+        if(!newVisibilityState && !awaitPlayerLossSightDispatched && !controller.StunnedByKnockback)
         {
             awaitPlayerLossSight = controller.StartCoroutine(AwaitPlayerLossSightAsync(controller));
             Debug.Log("Awaiting Player Lost");
@@ -43,8 +43,12 @@ public class RangedAIChaseState : AIBaseState
 
     public override void OnStateExit(AIController controller)
     {
-       awaitPlayerLossSight = null;
-       awaitPlayerLossSightDispatched = false;
+            if(awaitPlayerLossSight != null)
+            {
+                controller.StopCoroutine(awaitPlayerLossSight);
+                awaitPlayerLossSight = null;
+            }
+            awaitPlayerLossSightDispatched = false;
        Debug.Log("Changing State");
     }
 
@@ -52,7 +56,16 @@ public class RangedAIChaseState : AIBaseState
     {
 
     }
-
+    public override void OnKnockbackTaken(AIController controller)
+    {
+            if(awaitPlayerLossSight != null)
+            {
+                controller.StopCoroutine(awaitPlayerLossSight);
+                awaitPlayerLossSight = null;
+            }
+            awaitPlayerLossSightDispatched = false;
+            Debug.Log("Stunned");
+    }
     public override void OnUpdateNavigation(AIController controller)
     {
         NavMesh.SamplePosition(Player.transform.position, out NavMeshHit playerHit, DISTANCE_FOR_PLAYER_NAVMESH_CHECK, NavMesh.AllAreas);
@@ -84,6 +97,7 @@ public class RangedAIChaseState : AIBaseState
                     if(circleHit.hit)
                     {
                         placesToCheckForNavPoint.Add(circleHit.position);
+                        Debug.DrawRay(circleHit.position, Vector3.up, Color.red, 1);
                     }
                 }
                 Vector3 selectedNavLocation = ScoreHeuristic(placesToCheckForNavPoint, controller, playerDistance);
@@ -109,10 +123,10 @@ public class RangedAIChaseState : AIBaseState
 
             for(int i = 0; i < possibleNavPoints.Count; i++)
             {
-                currentScore += playerDistance - Vector3.Distance(possibleNavPoints[i], controller.transform.position);
-                currentScore += (playerDistance / 2) * Mathf.Clamp01(Vector3.Dot(Player.transform.forward, (controller.transform.position - Player.transform.position).normalized));
+                currentScore -= Vector3.Distance(possibleNavPoints[i], controller.transform.position);
                 NavMesh.FindClosestEdge(possibleNavPoints[i], out NavMeshHit nearestEdge, NavMesh.AllAreas);
-                currentScore += playerDistance - Vector3.Distance(possibleNavPoints[i], nearestEdge.position);
+                //Debug.Log(Vector3.Distance(possibleNavPoints[i], nearestEdge.position) * 4);
+                currentScore += Vector3.Distance(possibleNavPoints[i], nearestEdge.position) * 4;
                 if(currentScore > bestScore)
                 {
                     bestScore = currentScore;

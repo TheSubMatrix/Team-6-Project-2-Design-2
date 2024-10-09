@@ -17,7 +17,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     protected AIBaseState currentState;
     Rigidbody rb;
     [field:SerializeField] public List<AIBaseState> aiStates {get; private set;} = new List<AIBaseState>();
-    bool stunnedByKnockback = false;
+    public bool StunnedByKnockback {get; private set;} = false;
     GameObject currentPlayerReference;
     protected virtual void Awake()
     {
@@ -30,12 +30,10 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
         AIBaseState stateToTransitionTo = GetState(stateName);
         if(stateToTransitionTo != null)
         {
-            Debug.Log(currentState.Name);
             currentState.OnStateExit(this);
             currentState = stateToTransitionTo;
             currentState.UpdatePlayerReference(currentPlayerReference);
             currentState.OnStateEntered(this);
-            Debug.Log(currentState.Name);
         }
         else
         {
@@ -44,7 +42,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     }
     private void Update()
     {
-        if(!stunnedByKnockback)
+        if(!StunnedByKnockback)
         {
             currentState.OnStateUpdate(this);
         }
@@ -69,14 +67,14 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
 
     public void TakeKnockback(Vector3 knockbackDirection)
     {
-        if(!stunnedByKnockback)
+        if(!StunnedByKnockback)
         {
             StartCoroutine(OnKnockbackTakenAsync(knockbackDirection));
         }
     }
     IEnumerator UpdateNavigationAsync()
     {
-        if(!stunnedByKnockback)
+        if(!StunnedByKnockback)
         {
             currentState.OnUpdateNavigation(this);
         }
@@ -86,7 +84,8 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     IEnumerator OnKnockbackTakenAsync(Vector3 knockbackDirection)
     {
         yield return null;
-        stunnedByKnockback = true;
+        StunnedByKnockback = true;
+        currentState.OnKnockbackTaken(this);
         navMeshAgent.enabled = false;
         rb.useGravity = true;
         rb.isKinematic = false;
@@ -100,7 +99,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
         rb.isKinematic = true;
         navMeshAgent.Warp(transform.position);
         navMeshAgent.enabled = true;
-        stunnedByKnockback = false;
+        StunnedByKnockback = false;
         yield return null;
     }
     protected AIBaseState GetState(string stateName)

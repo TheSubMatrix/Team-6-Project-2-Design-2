@@ -23,4 +23,5 @@ public abstract class AIBaseState
     public abstract void OnStateExit(AIController controller);
     public abstract void OnUpdateNavigation(AIController controller);
     public abstract void OnPlayerVisibilityUpdated(AIController controller, bool newVisibilityState);
+    public virtual void OnKnockbackTaken(AIController controller){}
 }
