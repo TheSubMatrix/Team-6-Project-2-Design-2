@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d718b3a0df6d9b49bf9f760307fdb41, type: 3}
   m_Name: Damage Reduction Boon
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <AssociatedImage>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Mother's Safety
+  <Description>k__BackingField: Reduce damage taken
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 0b9165b5f5a0a774ba35b42982891922,
+    type: 3}
   armorToAdd: 5

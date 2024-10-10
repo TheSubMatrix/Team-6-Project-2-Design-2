@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a39d02d3a986014fb67f75e11dca167, type: 3}
   m_Name: Bastet
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Bastet
-  <Description>k__BackingField: 
-  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 23fc4fb4bdf923f4390781879a576b63,
+  <Name>k__BackingField: Goddess of Protection
+  <Description>k__BackingField: Abilities decrease damage taken and apply shields
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 0b9165b5f5a0a774ba35b42982891922,
     type: 3}
   AssociatedBoons:
   - {fileID: 11400000, guid: 6ec658bb84cca9042a7043960c9597ff, type: 2}

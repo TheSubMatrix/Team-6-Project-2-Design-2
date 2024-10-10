@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244faec3c71b8ee4a8e9f9d9988825b8, type: 3}
   m_Name: Dash Shield Boon
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <AssociatedImage>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Godess' Grace
+  <Description>k__BackingField: Shield on dodge
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 0b9165b5f5a0a774ba35b42982891922,
+    type: 3}

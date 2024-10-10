@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Golden Influence
   <Description>k__BackingField: Provides you with extra coins
-  <AssociatedImage>k__BackingField: {fileID: 0}
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 3f10a200556bd9d49884360cef46c4c5,
+    type: 3}
+  extraMoneyToGive: 10

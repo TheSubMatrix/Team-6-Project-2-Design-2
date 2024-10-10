@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f66cf9588a0f3a4799ca6fea527fe8d, type: 3}
   m_Name: Auto Dodge Boon
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <AssociatedImage>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Divine Intervention
+  <Description>k__BackingField: Chance to automatically dodge
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 0b9165b5f5a0a774ba35b42982891922,
+    type: 3}
   healPercent: 0.5
