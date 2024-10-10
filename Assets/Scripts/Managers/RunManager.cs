@@ -81,7 +81,7 @@ public class RunManager : MonoBehaviour
 
     [SerializeField] List<LevelProgressionDoor> doors;
     [field:SerializeField] public List<GodData> Gods {get; private set;}= new List<GodData>();
-    [SerializeField] List<BoonBase> permenantBoons = new List<BoonBase>(); 
+    [SerializeField] GodData persistantGod;
     void UpdateSceneRewards()
     {
         GameObject[] rewardAwarders = GameObject.FindGameObjectsWithTag("Reward Selection Trigger");
@@ -185,7 +185,7 @@ public class RunManager : MonoBehaviour
     public void SetupBoonSelection(GodData godData)
     {
         RewardPool.Clear();
-        RewardPool.AddRange(permenantBoons);
+        RewardPool.AddRange(persistantGod.AssociatedBoons);
         RewardPool.AddRange(godData.AssociatedBoons);
     }
     public void UpdateDoorReferences()

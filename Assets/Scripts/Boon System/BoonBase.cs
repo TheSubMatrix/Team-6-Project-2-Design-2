@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class BoonBase: ScriptableObject
 {
-    public string Name;
-    public string Description;
+    [field: SerializeField] public string Name {get; protected set;}
+    [field: SerializeField] public string Description {get; protected set;}
+    [field: SerializeField] public Texture2D AssociatedImage {get; protected set;}
     public abstract void OnBoonActivationEvent(PlayerBoonManager.BoonActivation boonActivation, PlayerBoonManager boonManager);
 }
