@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 using System.ComponentModel;
 using System.Linq;
+using UnityEngine.Events;
 
 public class RunManager : MonoBehaviour
 {
@@ -15,9 +16,21 @@ public class RunManager : MonoBehaviour
     }
     public static RunManager Instance{get; private set;}
     [SerializeField] public PlayerCallbackChannel callbackChannel;
-
+    [SerializeField] public UnityEvent<uint> OnCoinCountUpdated = new UnityEvent<uint>();
     //Currency
-    public uint coins = 0;
+    uint m_coins = 5;
+    public uint Coins
+    {
+        get
+        {
+            return m_coins;
+        }
+        set
+        {
+            m_coins = value;
+            OnCoinCountUpdated.Invoke(value);
+        }
+    }
 
     //Extra Health
     public uint ExtraHealth; 
@@ -129,6 +142,10 @@ public class RunManager : MonoBehaviour
             m_currentFloor = 0;
         }
     }
+    void Start()
+    {
+        OnCoinCountUpdated.Invoke(Coins);
+    }
     void OnSceneChanged()
     {
             GameObject oldPlayer = Player;
@@ -137,6 +154,7 @@ public class RunManager : MonoBehaviour
             {
                 UpdateOnDeathListener();
                 ApplyPermenantUpgrades();
+                OnCoinCountUpdated.Invoke(Coins);
             }
             UpdateSceneRewards();
             if(!levelsToNotSpawnEnemies.Contains(SceneManager.GetActiveScene().name) )

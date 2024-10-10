@@ -29,6 +29,7 @@ public class Health : MonoBehaviour, IDamagable, IHealable
         {
             m_maxHealth = value;
             CurrentHealth = (uint)Mathf.Clamp((int)CurrentHealth, 0, (int)value);
+            OnMaxHealthUpdated?.Invoke(value);
         }
     }
     [SerializeField] bool m_useInvulnerabilityAfterDamage = true;
@@ -104,6 +105,10 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     /// Triggered when a health component becomes vulnerable
     /// </summary>
     public UnityEvent OnBecameVulnerable = new UnityEvent();
+    /// <summary>
+    /// 
+    /// </summary>
+    public UnityEvent<uint> OnMaxHealthUpdated = new UnityEvent<uint>();
     #endregion
     /// <summary>
     /// Initializes the Health Component with a full HP and invokes the declaration event
