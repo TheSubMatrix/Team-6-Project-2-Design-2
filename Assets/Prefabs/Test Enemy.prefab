@@ -247,7 +247,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1016350372348072193}
         m_TargetAssemblyTypeName: AIController, Assembly-CSharp
         m_MethodName: OnDeath
         m_Mode: 1

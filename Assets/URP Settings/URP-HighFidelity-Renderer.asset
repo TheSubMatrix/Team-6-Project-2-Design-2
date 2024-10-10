@@ -107,12 +107,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
-  m_Name: FullScreenPassRendererFeature
+  m_Name: Outlines
   m_EditorClassIdentifier: 
   m_Active: 1
-  injectionPoint: 600
+  injectionPoint: 450
   fetchColorBuffer: 1
-  requirements: 6
+  requirements: 7
   passMaterial: {fileID: 2100000, guid: 193a20105616c3740804de88289525b4, type: 2}
   passIndex: 0
   bindDepthStencilAttachment: 0

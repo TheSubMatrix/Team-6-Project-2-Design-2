@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoonAdditionTester : MonoBehaviour
 {
-    DebugBoon debugBoon = new DebugBoon();
+    [SerializeField] DebugBoon debugBoon;
     private void Start() {
         FindAnyObjectByType<PlayerBoonManager>().AddBoon(debugBoon);
     }

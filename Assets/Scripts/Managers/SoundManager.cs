@@ -57,7 +57,7 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             soundPool = new ObjectPool<GameObject>(OnCreateSound, OnGetFromPool, OnReturnToPool, OnDestroySound);
         }
-        else
+        if(instance != this)
         {
             Destroy(this);
         }

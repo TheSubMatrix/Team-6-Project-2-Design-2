@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using System.ComponentModel;
+using System.Linq;
 
 public class RunManager : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class RunManager : MonoBehaviour
 
     //Life Counting
     public uint maxPlayerLives = 0;
+
+    uint currentSpawnedEnemies = 0;
     #region Scene Managment
     [SerializeReference] uint roomsToCompleteBeforeNextFloor = 3;
 
@@ -71,9 +75,13 @@ public class RunManager : MonoBehaviour
     [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
     [SerializeField] List<string> levelsToNotSpawnEnemies = new List<string>();
     #endregion
-    public List<BoonBase> rewardPool = new List<BoonBase>();
+    public List<BoonBase> RewardPool{ get; private set; } = new List<BoonBase>();
+
     uint playerLives;
 
+    [SerializeField] List<LevelProgressionDoor> doors;
+    [field:SerializeField] public List<GodData> Gods {get; private set;}= new List<GodData>();
+    [SerializeField] List<BoonBase> permenantBoons = new List<BoonBase>(); 
     void UpdateSceneRewards()
     {
         GameObject[] rewardAwarders = GameObject.FindGameObjectsWithTag("Reward Selection Trigger");
@@ -82,9 +90,9 @@ public class RunManager : MonoBehaviour
             foreach(GameObject awarder in rewardAwarders)
             {
                 RewardProvider rewardProvider = awarder.GetComponent<RewardProvider>();
-                if(rewardProvider != null && rewardPool.Count > 0)
+                if(rewardProvider != null && RewardPool.Count > 0)
                 {
-                    rewardProvider.boonToAward = rewardPool[Random.Range(0, rewardPool.Count)];
+                    rewardProvider.boonToAward = RewardPool[Random.Range(0, RewardPool.Count)];
                 }
             }
         }
@@ -135,16 +143,19 @@ public class RunManager : MonoBehaviour
             {
                 if(enemyPrefabs.Count > 0)
                 {
+                    currentSpawnedEnemies = 0;
                     for(int i = 0; i < roomsToCompleteBeforeNextFloor * (CurrentFloor) + (CurrentRoomInFloor + 1); i++)
                     {
-                        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], StaticMethods.GetRandomLocationOnNavmesh(), Quaternion.identity);
-                        Debug.Log(roomsToCompleteBeforeNextFloor * (CurrentFloor + 1) + (CurrentRoomInFloor + 1) - 3);
+                        GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], StaticMethods.GetRandomLocationOnNavmesh(), Quaternion.identity);
+                        enemy.GetComponent<Health>().OnDeath.AddListener(HandleEnemyDeath);
+                        currentSpawnedEnemies++;
                     }
                 }else
                 {
                     Debug.LogWarning("No enemy prefabs in run manager");
                 }
             }
+            UpdateDoorReferences();
     }
     void ApplyPermenantUpgrades()
     {
@@ -171,4 +182,25 @@ public class RunManager : MonoBehaviour
         Player = playerGO;
     }
 
+    public void SetupBoonSelection(GodData godData)
+    {
+        RewardPool.Clear();
+        RewardPool.AddRange(permenantBoons);
+        RewardPool.AddRange(godData.AssociatedBoons);
+    }
+    public void UpdateDoorReferences()
+    {
+        doors =  FindObjectsOfType(typeof(LevelProgressionDoor)).Cast<LevelProgressionDoor>().ToList();
+    }
+    public void HandleEnemyDeath()
+    {
+        currentSpawnedEnemies--;
+        if(currentSpawnedEnemies <= 0)
+        {
+            foreach(LevelProgressionDoor door in doors)
+            {
+                door.OpenDoor();
+            }
+        }
+    }
 }

@@ -388,6 +388,9 @@ MonoBehaviour:
   scenesToPickFrom: []
   enemyPrefabs: []
   levelsToNotSpawnEnemies: []
+  doors: []
+  <Gods>k__BackingField: []
+  permenantBoons: []
 --- !u!4 &159734016
 Transform:
   m_ObjectHideFlags: 0
@@ -615,7 +618,7 @@ Transform:
   m_GameObject: {fileID: 337875927}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: -6.25, z: 0}
+  m_LocalPosition: {x: 1.25, y: -5.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1256,6 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90edfe424dc63b44baf9d904dc0a26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boonToAward: {fileID: 0}
 --- !u!4 &1043690906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5493867356351152893, guid: ca565ad15723d77419a80dea6c2dfb37,
@@ -1685,6 +1689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90edfe424dc63b44baf9d904dc0a26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boonToAward: {fileID: 0}
 --- !u!1 &1458334067 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7793591296301008433, guid: baf903cce121c7840881d403a369518c,
@@ -2107,6 +2112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90edfe424dc63b44baf9d904dc0a26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boonToAward: {fileID: 0}
 --- !u!1001 &1643187563
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpikeTrap : MonoBehaviour
 {
     [SerializeField] Animator animator;
     List<GameObject> plateActivators = new List<GameObject>();
+    [SerializeField] UnityEvent<bool> OnPressurePlateStateUpdated;
     /// <summary>
     /// OnTriggerEnter is called when the Collider other enters the trigger.
     /// </summary>
@@ -19,6 +21,7 @@ public class SpikeTrap : MonoBehaviour
         if(plateActivators.Count > 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("Await Compress"))
         {
             animator.SetTrigger("Plate Pressed");
+            OnPressurePlateStateUpdated?.Invoke(true);
         }
     }
     /// <summary>
@@ -35,6 +38,7 @@ public class SpikeTrap : MonoBehaviour
         if(plateActivators.Count <= 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("Plate Compress"))
         {
             animator.SetTrigger("Plate Unpressed");
+            OnPressurePlateStateUpdated?.Invoke(false);
         }
     }
 }
