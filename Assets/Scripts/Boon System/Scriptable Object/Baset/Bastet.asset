@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a39d02d3a986014fb67f75e11dca167, type: 3}
-  m_Name: Anubis
+  m_Name: Bastet
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Anubis
+  <Name>k__BackingField: Bastet
   <Description>k__BackingField: 
-  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 3f10a200556bd9d49884360cef46c4c5,
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 23fc4fb4bdf923f4390781879a576b63,
     type: 3}
   AssociatedBoons:
-  - {fileID: 11400000, guid: 1060d49a120aeac4e891dfcacb364a06, type: 2}
-  - {fileID: 11400000, guid: b75d4712e4c58a6449a12e2fcb617e72, type: 2}
-  - {fileID: 11400000, guid: db696f14fe9d15648b55510c4bd419c0, type: 2}
+  - {fileID: 11400000, guid: 6ec658bb84cca9042a7043960c9597ff, type: 2}
+  - {fileID: 11400000, guid: f4c02ea8b115d674bb846ea72474bd0e, type: 2}
+  - {fileID: 11400000, guid: 4d8a3ce99789ff74e8ba602e8017dfbc, type: 2}

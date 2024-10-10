@@ -205,8 +205,9 @@ MonoBehaviour:
   levelsToNotSpawnEnemies:
   - Starting Room
   doors: []
-  <Gods>k__BackingField: []
-  persistantGod: {fileID: 0}
+  <Gods>k__BackingField:
+  - {fileID: 11400000, guid: 36f7d6add53e1ef4daecbbb5132b7b54, type: 2}
+  persistantGod: {fileID: 11400000, guid: 80e1a5aac1486e047aaf9edb8c299361, type: 2}
 --- !u!4 &159734016
 Transform:
   m_ObjectHideFlags: 0
@@ -1835,8 +1836,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
         type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
+        type: 3}
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 2095795117}
+    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDeath
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7173478775516980422, guid: ee5d5a89abfc9134cb316f327ee4a808,
         type: 3}

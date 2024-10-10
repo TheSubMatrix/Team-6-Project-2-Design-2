@@ -36,7 +36,7 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     [SerializeField] float m_inulnerabilityAfterDamageTimer = 3;
 
     [SerializeField] bool m_useArmor;
-    [SerializeField] uint m_armor;
+    [field: SerializeField] public uint Armor{get; set;}
     [SerializeField] uint m_armorForFiftyPercentReduction = 50;
 
     [SerializeField] bool m_isInvulnerable = false;
@@ -181,7 +181,7 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     /// <returns>The damage reduction percent</returns>
     float CalculateDamageReduction(uint armorPentetration)
     {
-        uint armorAfterPenetration = (uint)Mathf.Clamp((int)m_armor - (int)armorPentetration, 0, uint.MaxValue);
+        uint armorAfterPenetration = (uint)Mathf.Clamp((int)Armor - (int)armorPentetration, 0, uint.MaxValue);
         return 1 - (float)armorAfterPenetration / ((float)armorAfterPenetration + (float)m_armorForFiftyPercentReduction);
     }
     /// <summary>

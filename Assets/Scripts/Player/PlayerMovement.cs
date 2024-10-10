@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         //Get player dash input
         if(Input.GetKeyDown(KeyCode.Space) && !m_isDashing && !m_isInDashCooldown)
         {
-            StartCoroutine(Dash());
+            Dash();
         }
         //Handle look direction
         if(m_playerInput != Vector3.zero && !m_isDashing)
@@ -73,10 +73,17 @@ public class PlayerMovement : MonoBehaviour
         playerModelAnimator.SetFloat("Speed", speed / 6);
     }
     /// <summary>
+    /// Activates a dash coroutine
+    /// </summary>
+    public void Dash()
+    {
+        StartCoroutine(DashAsync());
+    }
+    /// <summary>
     /// Dashes forward over the given period and distance
     /// </summary>
     /// <returns>Nothing</returns>
-    IEnumerator Dash()
+    IEnumerator DashAsync()
     {
         //setup variables for upcoming dash
         m_isDashing = true;

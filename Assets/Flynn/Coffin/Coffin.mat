@@ -129,7 +129,7 @@ Material:
     - _ADDITIONAL_LIGHT_SHADOWS: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Ambient_Occlusion: 0.68
+    - _Ambient_Occlusion: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -142,8 +142,8 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Extra_Metallic: 1
-    - _Extra_Smoothness: -0.77
+    - _Extra_Metallic: 0.42
+    - _Extra_Smoothness: -1.18
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
