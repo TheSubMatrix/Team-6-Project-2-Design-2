@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody m_rigidBody;
     Vector3 m_playerInput;
     Matrix4x4 m_cameraRotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(0,45,0));
+    [HideInInspector]public bool shouldTryToMove = true;
     bool m_isDashing = false;
     bool m_isInDashCooldown = false;
     [Header("References")]
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             Dash();
         }
         //Handle look direction
-        if(m_playerInput != Vector3.zero && !m_isDashing)
+        if(m_playerInput != Vector3.zero && !m_isDashing && shouldTryToMove)
         {
             Vector3 skewedInput = m_cameraRotationMatrix.MultiplyPoint3x4(m_playerInput);
             Vector3 desiredLookDirection = (transform.position + skewedInput) - transform.position;
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if(!m_isDashing)
+        if(!m_isDashing && shouldTryToMove)
         {
             Vector3 desiredMovement = new Vector3(transform.forward.x * m_movementSpeed * m_playerInput.normalized.magnitude, m_rigidBody.velocity.y, transform.forward.z * m_movementSpeed * m_playerInput.normalized.magnitude);
             //Move the rigidbody based on our direction 
@@ -77,7 +78,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void Dash()
     {
-        StartCoroutine(DashAsync());
+        if(shouldTryToMove)
+        {
+            StartCoroutine(DashAsync());
+        }
     }
     /// <summary>
     /// Dashes forward over the given period and distance

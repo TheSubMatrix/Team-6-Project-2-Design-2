@@ -16,7 +16,6 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     [SerializeField] LayerMask visibilityLayerMask;
     [Header("Prefab References")]
     [SerializeField] GameObject coinDropper;
-    [SerializeField] GameObject coin;
     protected AIBaseState currentState;
     Rigidbody rb;
     [field:SerializeField] public List<AIBaseState> aiStates {get; private set;} = new List<AIBaseState>();
@@ -65,7 +64,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     }
     public void OnDeath()
     {
-
+        CoinDropper dropper = Instantiate(coinDropper, transform.position, transform.rotation).GetComponent<CoinDropper>();
         Destroy(gameObject);
     }
 

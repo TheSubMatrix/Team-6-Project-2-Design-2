@@ -14,6 +14,7 @@ public class CoinDropper : MonoBehaviour
 
     IEnumerator SpawnCoinsAsync()
     {
+        yield return new WaitUntil(() => coinPrefab != null);
         for(int i = 0; i < CoinsToDrop; i++)
         {
             yield return new WaitForSeconds(TIME_BETWEEN_COIN_DROPS);
