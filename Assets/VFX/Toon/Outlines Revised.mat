@@ -94,10 +94,10 @@ Material:
     - _Color_Threshold: 10
     - _Cull: 2
     - _Cutoff: 0.5
-    - _Depth_Normal_Threshold: 1
-    - _Depth_Normal_Threshold_Scale: 0.37
+    - _Depth_Normal_Threshold: 0.8
+    - _Depth_Normal_Threshold_Scale: 2.28
     - _Depth_Normal_threshold_Scale: 7
-    - _Depth_Threshold: 4.23
+    - _Depth_Threshold: 3.88
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -108,13 +108,13 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _NormalThreshold: 0.15
-    - _Normal_Threshold: 0.48
+    - _Normal_Threshold: 0.746
     - _OVERLAY: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Scale: 1.16
+    - _Scale: 1.59
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

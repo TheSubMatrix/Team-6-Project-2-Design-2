@@ -14,6 +14,9 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     [Header("AI Settings")]
     [SerializeField] float timeBetweenNavigationUpdates = 0.5f;
     [SerializeField] LayerMask visibilityLayerMask;
+    [Header("Prefab References")]
+    [SerializeField] GameObject coinDropper;
+    [SerializeField] GameObject coin;
     protected AIBaseState currentState;
     Rigidbody rb;
     [field:SerializeField] public List<AIBaseState> aiStates {get; private set;} = new List<AIBaseState>();
@@ -62,6 +65,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     }
     public void OnDeath()
     {
+
         Destroy(gameObject);
     }
 
