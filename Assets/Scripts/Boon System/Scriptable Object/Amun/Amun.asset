@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a39d02d3a986014fb67f75e11dca167, type: 3}
   m_Name: Amun
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <AssociatedImage>k__BackingField: {fileID: 0}
-  AssociatedBoons: []
+  <Name>k__BackingField: God of Wind and Sky
+  <Description>k__BackingField: Abilities increase knockback and movement speed
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 7136674b2fe0cca4a840f857ba1b0064,
+    type: 3}
+  AssociatedBoons:
+  - {fileID: 11400000, guid: b873d7af7898ab4479ff5f33fb9f9d4c, type: 2}
+  - {fileID: 11400000, guid: bbe3805b5a7d2984bad6aa47e6bba2a9, type: 2}
+  - {fileID: 11400000, guid: 065ceb8683e4c4d45a50025cb8ae1d3d, type: 2}

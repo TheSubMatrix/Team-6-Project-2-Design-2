@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de6ce5bb433f594cb531d0818445d21, type: 3}
   m_Name: Wind dodge
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <AssociatedImage>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Guiding Winds
+  <Description>k__BackingField: Increased dodge distance
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 7136674b2fe0cca4a840f857ba1b0064,
+    type: 3}

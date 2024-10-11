@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a39d02d3a986014fb67f75e11dca167, type: 3}
+  m_Name: Ra
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: God of the Sun
+  <Description>k__BackingField: Abilities focus on dealing fire damage and blinding
+    enemies
+  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 6e79d202239534546b79f6b6153fa78f,
+    type: 3}
+  AssociatedBoons:
+  - {fileID: 11400000, guid: 6f4563784f3f3cc4ca9a9b1dae898e60, type: 2}
+  - {fileID: 11400000, guid: 4610dbca2099e7e4c974df2f932024cf, type: 2}
+  - {fileID: 11400000, guid: 39855968128905f4d8ea33de7492189d, type: 2}
