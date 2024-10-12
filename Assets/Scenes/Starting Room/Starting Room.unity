@@ -980,6 +980,57 @@ MonoBehaviour:
     _reverbZoneMix: 1
     _minDistance: 1
     _maxDistance: 500
+  - Name: WalkCycle
+    VolumeMode: 0
+    AudioClip: {fileID: 8300000, guid: cb81de8a44e2b5743bcaf7311abd6ac7, type: 3}
+    AudioMixerGroup: {fileID: 0}
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    PlayOnAwake: 0
+    Loop: 0
+    _priority: 128
+    _volume: 1
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMix: 1
+    _minDistance: 1
+    _maxDistance: 500
+  - Name: CoinPickup
+    VolumeMode: 0
+    AudioClip: {fileID: 8300000, guid: 9282c9a80e39e734f83f424c7cfc1d06, type: 3}
+    AudioMixerGroup: {fileID: 0}
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    PlayOnAwake: 0
+    Loop: 0
+    _priority: 128
+    _volume: 1
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMix: 1
+    _minDistance: 1
+    _maxDistance: 500
+  - Name: EnemyHit
+    VolumeMode: 0
+    AudioClip: {fileID: 8300000, guid: 0cb97cd092105e64c9ee1722fa45b11b, type: 3}
+    AudioMixerGroup: {fileID: 0}
+    Mute: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    PlayOnAwake: 0
+    Loop: 0
+    _priority: 128
+    _volume: 1
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMix: 1
+    _minDistance: 1
+    _maxDistance: 500
 --- !u!4 &437821308
 Transform:
   m_ObjectHideFlags: 0
@@ -3226,7 +3277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1529726116
 MonoBehaviour:
   m_ObjectHideFlags: 0
