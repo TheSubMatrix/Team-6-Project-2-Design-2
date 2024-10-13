@@ -15,7 +15,7 @@ public class RunManager : MonoBehaviour
         private set;
     }
     public static RunManager Instance{get; private set;}
-    [SerializeField] public PlayerCallbackChannel callbackChannel;
+    [SerializeField] public PlayerChannel callbackChannel;
     [SerializeField] public UnityEvent<uint> OnCoinCountUpdated = new UnityEvent<uint>();
     //Currency
     uint m_coins = 5;
@@ -94,7 +94,7 @@ public class RunManager : MonoBehaviour
 
     [SerializeField] List<LevelProgressionDoor> doors;
     [field:SerializeField] public List<GodData> Gods {get; private set;}= new List<GodData>();
-    [SerializeField] GodData persistantGod;
+    [SerializeField] public GodData persistantGod;
     void UpdateSceneRewards()
     {
         GameObject[] rewardAwarders = GameObject.FindGameObjectsWithTag("Reward Selection Trigger");

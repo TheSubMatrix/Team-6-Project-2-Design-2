@@ -31,7 +31,10 @@ public class PlayerBoonManager : MonoBehaviour
     {
         boonActivationEvent?.Invoke(BoonActivation.OnDashEnded, this);
     }
-
+    public void OnDamageTaken()
+    {
+        boonActivationEvent?.Invoke(BoonActivation.OnDamaged, this);
+    }
     public void AddBoon(BoonBase boonToAdd)
     {
         boonToAdd.OnBoonActivationEvent(BoonActivation.OnAdded, this);

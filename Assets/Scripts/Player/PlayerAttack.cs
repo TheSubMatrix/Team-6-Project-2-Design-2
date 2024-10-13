@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    bool shouldTryAttack = true;
-    [SerializeField]private Animator anim;
+    bool shouldTryToAttack = true;
+    bool isDashing = false;
+    [SerializeField] private Animator anim;
+    [SerializeField] PlayerChannel playerChannel;
 
+    private void Awake()
+    {
+        playerChannel.ChangePlayerMovementState.AddListener(OnPlayerMovementStateChanged);
+    }
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && shouldTryAttack)
+        if(Input.GetMouseButtonDown(0) && !isDashing && shouldTryToAttack)
         {
             if(anim.GetCurrentAnimatorStateInfo(1).IsName("No Extra Motion") && !anim.IsInTransition(1))
             {
@@ -37,10 +43,14 @@ public class PlayerAttack : MonoBehaviour
         {
             anim.SetTrigger("Cancel Swing To Roll");
         }
-        shouldTryAttack = false;
+        isDashing = true;
     }
     public void OnDashEnded()
     {
-        shouldTryAttack = true;
+        isDashing = false;
+    }
+    public void OnPlayerMovementStateChanged(bool newMovementState)
+    {
+        shouldTryToAttack = newMovementState;
     }
 }

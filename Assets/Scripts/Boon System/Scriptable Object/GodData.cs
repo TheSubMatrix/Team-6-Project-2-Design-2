@@ -10,6 +10,6 @@ using UnityEngine.UI;
 public class GodData : ScriptableObject {
     [field: SerializeField] public string Name {get; private set;}
     [field: SerializeField] public string Description {get; private set;}
-    [field: SerializeField] public Texture2D AssociatedImage {get; private set;}
+    [field: SerializeField] public Sprite AssociatedImage {get; private set;}
     public List<BoonBase> AssociatedBoons = new List<BoonBase>();
 }
