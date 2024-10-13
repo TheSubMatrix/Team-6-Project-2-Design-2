@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Obelisk
+  m_Name: Obelisk Old
   m_Shader: {fileID: -6465566751694194690, guid: 773ab418a19626b41b3e1214791180da,
     type: 3}
   m_Parent: {fileID: 0}
@@ -44,7 +44,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: b9bbc35633573c34d8686be1b203341d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5f6deda244457f14ab7b01a2dd057ea3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
-        m_Texture: {fileID: 2800000, guid: 41ad3e1bc41a051459131c4c9fdfdeb4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8da6d6fedc506904dbaa31b51392fdf7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -84,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
-        m_Texture: {fileID: 2800000, guid: 41a2a64d88f757e4ea77f25aae326ad5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 962a75405b72dce4ea8eacc12b62c3d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -139,7 +139,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Extra_Metallic: 0
-    - _Extra_Smoothness: -0.07
+    - _Extra_Smoothness: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -147,7 +147,7 @@ Material:
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
     - _Metallic: 0
-    - _Normal_Strength: 0.29
+    - _Normal_Strength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -167,7 +167,7 @@ Material:
     m_Colors:
     - _Albedo_Tint: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Channel_Quantization_Amounts: {r: 4.93, g: 14.61, b: 9.5, a: 15}
+    - _Channel_Quantization_Amounts: {r: 15, g: 15, b: 15, a: 15}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Quantization_Channels: {r: 255, g: 255, b: 255, a: 0}

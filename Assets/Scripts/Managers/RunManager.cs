@@ -90,7 +90,7 @@ public class RunManager : MonoBehaviour
     #endregion
     public List<BoonBase> RewardPool{ get; private set; } = new List<BoonBase>();
 
-    uint playerLives;
+    public uint PlayerLives = 0;
 
     [SerializeField] List<LevelProgressionDoor> doors;
     [field:SerializeField] public List<GodData> Gods {get; private set;}= new List<GodData>();
@@ -116,7 +116,7 @@ public class RunManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            playerLives = maxPlayerLives;
+            PlayerLives = maxPlayerLives;
             UpdateOnDeathListener();
             SceneTransitionManager.Instance?.OnSceneTransitionCompleted.AddListener(OnSceneChanged);
             callbackChannel.signalPlayerCallback?.Invoke();
@@ -130,14 +130,14 @@ public class RunManager : MonoBehaviour
     }
     public void OnPlayerDeath()
     {
-        if(playerLives > 0)
+        if(PlayerLives > 0)
         {
-            playerLives--;
+            PlayerLives--;
         }
         else
         {
             SceneTransitionManager.Instance?.TransitionScene("Starting Scene");
-            playerLives = maxPlayerLives;
+            PlayerLives = maxPlayerLives;
             m_currentRoomInFloor = -1;
             m_currentFloor = 0;
         }
