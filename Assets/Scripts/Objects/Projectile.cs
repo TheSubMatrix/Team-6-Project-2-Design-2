@@ -1,18 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class Projectile : MonoBehaviour
+[RequireComponent(typeof(Collider))]
+public abstract class Projectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public ObjectPool<Projectile> poolReference;
+    public virtual void OnProjectilePulled()
+    {
+
+    }
+    public virtual void OnProjectileReturned()
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnCollisionEnter(Collision other)
     {
-        
+        DestroyOrReturn();
+    }
+    protected virtual void DestroyOrReturn()
+    {
+        if(gameObject.activeSelf)
+        {
+            if(poolReference != null)
+            {
+                poolReference.Release(this);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

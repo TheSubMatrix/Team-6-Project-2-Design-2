@@ -34,40 +34,41 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     IEnumerator FadeTransitionAsync(string sceneToTransitionTo, bool transitionPlayer = false, float timeForFadeIn = 0.5f, float delayForFadeIn = 0f, float timeForFadeOut = 0.5f, float delayForFadeOut = 0f)
-{
-    if(RunManager.Instance != null && transitionPlayer)
     {
-        DontDestroyOnLoad(RunManager.Instance.Player.gameObject);
-    }
-    yield return FadeAsync(1, timeForFadeIn, delayForFadeIn);
-    SceneManager.LoadScene(sceneToTransitionTo);
-    while(SceneManager.GetSceneByName(sceneToTransitionTo).isLoaded == false)
-    {
-        yield return null;
-    }
-    if(RunManager.Instance != null && RunManager.Instance.Player != null && transitionPlayer)
-    {
-        GameObject foundSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn");
-        if(foundSpawnPoint != null)
+        if(RunManager.Instance != null && transitionPlayer)
         {
-            RunManager.Instance.Player.transform.position = foundSpawnPoint.transform.position;
+            Debug.Log(RunManager.Instance.Player.gameObject);
+            DontDestroyOnLoad(RunManager.Instance.Player.gameObject);
         }
-        yield return null;
-        yield return new WaitForEndOfFrame();
-        SceneManager.MoveGameObjectToScene(RunManager.Instance.Player, SceneManager.GetActiveScene());
-        SmoothFollowPlayer[] smoothFollowPlayerScripts = FindObjectsOfType<SmoothFollowPlayer>();
-        if(smoothFollowPlayerScripts != null && smoothFollowPlayerScripts.Length > 0)
+        yield return FadeAsync(1, timeForFadeIn, delayForFadeIn);
+        SceneManager.LoadScene(sceneToTransitionTo);
+        while(SceneManager.GetSceneByName(sceneToTransitionTo).isLoaded == false)
         {
-            foreach(SmoothFollowPlayer i in smoothFollowPlayerScripts)
+            yield return null;
+        }
+        if(RunManager.Instance != null && RunManager.Instance.Player != null && transitionPlayer)
+        {
+            GameObject foundSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn");
+            if(foundSpawnPoint != null)
             {
-                i.pivotToFollow = RunManager.Instance.Player.transform;
+                RunManager.Instance.Player.transform.position = foundSpawnPoint.transform.position;
+            }
+            yield return null;
+            yield return new WaitForEndOfFrame();
+            SceneManager.MoveGameObjectToScene(RunManager.Instance.Player, SceneManager.GetActiveScene());
+            SmoothFollowPlayer[] smoothFollowPlayerScripts = FindObjectsOfType<SmoothFollowPlayer>();
+            if(smoothFollowPlayerScripts != null && smoothFollowPlayerScripts.Length > 0)
+            {
+                foreach(SmoothFollowPlayer i in smoothFollowPlayerScripts)
+                {
+                    i.pivotToFollow = RunManager.Instance.Player.transform;
+                }
             }
         }
+        OnSceneTransitionCompleted?.Invoke();
+        yield return FadeAsync(0, timeForFadeOut, delayForFadeOut);
+        Debug.Log("Complete");
     }
-    OnSceneTransitionCompleted?.Invoke();
-    yield return FadeAsync(0, timeForFadeOut, delayForFadeOut);
-    Debug.Log("Complete");
-}
     IEnumerator FadeAsync(float desiredAlpha, float timeForFade = 0.5f, float delay = 0f)
     {
         float elapsedTime = 0;

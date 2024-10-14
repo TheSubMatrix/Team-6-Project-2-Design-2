@@ -16,7 +16,7 @@ public class HudManager : MonoBehaviour
     }
     public void OnHealthDamage(DamageData damageData, uint oldHealth, uint newHealth)
     {
-        healthBar.value = newHealth / savedMaxHealth;
+        healthBar.value = (float)newHealth / (float)savedMaxHealth;
     }
     public void OnMaxHealthUpdated(uint newMaxHealth)
     {
@@ -26,7 +26,7 @@ public class HudManager : MonoBehaviour
     }
     public void OnHealthHeal(HealData healData, uint oldHealth, uint newHealth)
     {
-        healthBar.value = newHealth / savedMaxHealth;
+        healthBar.value = (float)newHealth / (float)savedMaxHealth;
     }
     public void OnCoinsUpdated(uint newCointCount)
     {

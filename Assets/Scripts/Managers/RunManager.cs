@@ -36,7 +36,7 @@ public class RunManager : MonoBehaviour
     public uint ExtraHealth; 
 
     //Life Counting
-    public uint maxPlayerLives = 0;
+    public int maxPlayerLives = 0;
 
     uint currentSpawnedEnemies = 0;
     #region Scene Managment
@@ -90,7 +90,7 @@ public class RunManager : MonoBehaviour
     #endregion
     public List<BoonBase> RewardPool{ get; private set; } = new List<BoonBase>();
 
-    public uint PlayerLives = 0;
+    public int PlayerLives = 0;
 
     [SerializeField] List<LevelProgressionDoor> doors;
     [field:SerializeField] public List<GodData> Gods {get; private set;}= new List<GodData>();
@@ -117,11 +117,10 @@ public class RunManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             PlayerLives = maxPlayerLives;
-            UpdateOnDeathListener();
             SceneTransitionManager.Instance?.OnSceneTransitionCompleted.AddListener(OnSceneChanged);
-            callbackChannel.signalPlayerCallback?.Invoke();
-            selectedSceneListToPickFrom = scenesToPickFrom[0].list;
             callbackChannel.playerCallback.AddListener(OnPlayerGOCallbackRecieved);
+            StartCoroutine(AwaitCallbackReturnAsync());
+            selectedSceneListToPickFrom = scenesToPickFrom[0].list;
         }
         else
         {
@@ -130,13 +129,14 @@ public class RunManager : MonoBehaviour
     }
     public void OnPlayerDeath()
     {
+        Debug.Log(PlayerLives);
         if(PlayerLives > 0)
         {
             PlayerLives--;
         }
         else
         {
-            SceneTransitionManager.Instance?.TransitionScene("Starting Scene");
+            SceneTransitionManager.Instance?.TransitionScene("Starting Room");
             PlayerLives = maxPlayerLives;
             m_currentRoomInFloor = -1;
             m_currentFloor = 0;
@@ -148,32 +148,7 @@ public class RunManager : MonoBehaviour
     }
     void OnSceneChanged()
     {
-            GameObject oldPlayer = Player;
-            callbackChannel.signalPlayerCallback?.Invoke();
-            if(oldPlayer != Player)
-            {
-                UpdateOnDeathListener();
-                ApplyPermenantUpgrades();
-                OnCoinCountUpdated.Invoke(Coins);
-            }
-            UpdateSceneRewards();
-            if(!levelsToNotSpawnEnemies.Contains(SceneManager.GetActiveScene().name) )
-            {
-                if(enemyPrefabs.Count > 0)
-                {
-                    currentSpawnedEnemies = 0;
-                    for(int i = 0; i < roomsToCompleteBeforeNextFloor * (CurrentFloor) + (CurrentRoomInFloor + 1); i++)
-                    {
-                        GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], StaticMethods.GetRandomLocationOnNavmesh(), Quaternion.identity);
-                        enemy.GetComponent<Health>().OnDeath.AddListener(HandleEnemyDeath);
-                        currentSpawnedEnemies++;
-                    }
-                }else
-                {
-                    Debug.LogWarning("No enemy prefabs in run manager");
-                }
-            }
-            UpdateDoorReferences();
+        StartCoroutine(OnSceneChanegdAsync());
     }
     void ApplyPermenantUpgrades()
     {
@@ -185,7 +160,7 @@ public class RunManager : MonoBehaviour
     }
     void UpdateOnDeathListener()
     {
-        Player?.GetComponent<Health>()?.OnDeath.AddListener(OnPlayerDeath); 
+        Player.GetComponent<Health>().OnDeath.AddListener(OnPlayerDeath);
     }
     public string GetRandomSceneOnFloor()
     {
@@ -220,5 +195,44 @@ public class RunManager : MonoBehaviour
                 door.OpenDoor();
             }
         }
+    }
+    IEnumerator AwaitCallbackReturnAsync()
+    {
+        callbackChannel.signalPlayerCallback?.Invoke();
+        yield return new WaitUntil(() => Player != null);
+        UpdateOnDeathListener();
+    }
+    /// <summary>
+    /// This is needed because the stupid scene doesnt fully load until the next fixed update. Why?
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator OnSceneChanegdAsync()
+    {
+        yield return new WaitForFixedUpdate();
+        GameObject oldPlayer = Player;
+        StartCoroutine(AwaitCallbackReturnAsync());
+        if(oldPlayer != Player)
+        {
+            ApplyPermenantUpgrades();
+            OnCoinCountUpdated.Invoke(Coins);
+        }
+        UpdateSceneRewards();
+        if(!levelsToNotSpawnEnemies.Contains(SceneManager.GetActiveScene().name) )
+        {
+            if(enemyPrefabs.Count > 0)
+            {
+                currentSpawnedEnemies = 0;
+                for(int i = 0; i < roomsToCompleteBeforeNextFloor * (CurrentFloor) + (CurrentRoomInFloor + 1); i++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], StaticMethods.GetRandomLocationOnNavmesh(), Quaternion.identity);
+                    enemy.GetComponent<Health>().OnDeath.AddListener(HandleEnemyDeath);
+                    currentSpawnedEnemies++;
+                }
+            }else
+            {
+                Debug.LogWarning("No enemy prefabs in run manager");
+            }
+        }
+        UpdateDoorReferences();
     }
 }
