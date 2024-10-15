@@ -6549,6 +6549,74 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &7920351933127848988
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -37.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -21.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7023928
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7117896
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.761
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285141723743581965, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8768908889311718839, guid: 29e7c29a837115943a330cba027f1944,
+        type: 3}
+      propertyPath: m_Name
+      value: PalmTree
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 29e7c29a837115943a330cba027f1944, type: 3}
 --- !u!33 &7958042627411748843
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6929,3 +6997,4 @@ SceneRoots:
   - {fileID: 713742796}
   - {fileID: 935573346}
   - {fileID: 1405987543315944907}
+  - {fileID: 7920351933127848988}
