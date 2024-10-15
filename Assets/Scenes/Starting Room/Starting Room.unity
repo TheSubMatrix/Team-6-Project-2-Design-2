@@ -1822,7 +1822,7 @@ PrefabInstance:
     - target: {fileID: 4256206464807049828, guid: b2b4202f79a81f44e92d09a175b6e4e3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.10131383
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4256206464807049828, guid: b2b4202f79a81f44e92d09a175b6e4e3,
         type: 3}
@@ -3883,6 +3883,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2095795117}
+    - targetCorrespondingSourceObject: {fileID: 7107316538216514409, guid: ee5d5a89abfc9134cb316f327ee4a808,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2095795118}
   m_SourcePrefab: {fileID: 100100000, guid: ee5d5a89abfc9134cb316f327ee4a808, type: 3}
 --- !u!4 &1286153822 stripped
 Transform:
@@ -5674,6 +5678,18 @@ MonoBehaviour:
     m_Bits: 51
   coinDropper: {fileID: 2930181760066513884, guid: 413c775ed78465b45bede7230e331e98,
     type: 3}
+--- !u!114 &2095795118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095795106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efdf260140feb684c8bb9e0a5a3457a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2118121732
 GameObject:
   m_ObjectHideFlags: 0
