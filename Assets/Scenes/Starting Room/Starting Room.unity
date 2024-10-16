@@ -2227,7 +2227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ca9800652aed97b46a1983352487aeca, type: 2}
+  - {fileID: 2100000, guid: 9dae4fe52b946b849b80b2679c10468d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2256,7 +2256,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643188830}
-  m_Mesh: {fileID: 4686849319519084627, guid: ccc29147ee9f119469ed08b3be0b5bc4, type: 3}
+  m_Mesh: {fileID: 4686849319519084627, guid: 4be794cba1ad67b4dadc30e684090635, type: 3}
 --- !u!4 &643188835
 Transform:
   m_ObjectHideFlags: 0
@@ -7453,6 +7453,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 951263865732460880, guid: 927e59b841872354a9ab47232f8520be,
         type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -4540754956799231368, guid: 4be794cba1ad67b4dadc30e684090635,
+        type: 3}
+    - target: {fileID: 951263865732460880, guid: 927e59b841872354a9ab47232f8520be,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 951263865732460880, guid: 927e59b841872354a9ab47232f8520be,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9dae4fe52b946b849b80b2679c10468d, type: 2}
@@ -7586,6 +7597,11 @@ PrefabInstance:
         type: 3}
       propertyPath: <OnDamage>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915501956026706323, guid: 927e59b841872354a9ab47232f8520be,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7415443078041753956, guid: 927e59b841872354a9ab47232f8520be,
         type: 3}
