@@ -5,9 +5,13 @@ using UnityEngine;
 public class LevelProgressionDoor : MonoBehaviour
 {
     [SerializeField] Animator doorAnimator;
-
+    [SerializeField] CanvasGroup boonInfoPanel;
     public void OpenDoor()
     {
-        doorAnimator.SetTrigger("Open Door");
+        if(doorAnimator != null)
+        {
+            doorAnimator.SetTrigger("Open Door");
+        }
+        boonInfoPanel.FadeGroup(this, 1);
     }
 }

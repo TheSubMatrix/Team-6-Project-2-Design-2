@@ -37,7 +37,7 @@ public class SceneTransitionManager : MonoBehaviour
     {
         if(RunManager.Instance != null && transitionPlayer)
         {
-            Debug.Log(RunManager.Instance.Player.gameObject);
+            
             DontDestroyOnLoad(RunManager.Instance.Player.gameObject);
         }
         yield return FadeAsync(1, timeForFadeIn, delayForFadeIn);

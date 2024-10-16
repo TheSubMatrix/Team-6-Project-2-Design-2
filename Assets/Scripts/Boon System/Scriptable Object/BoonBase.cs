@@ -6,6 +6,6 @@ public abstract class BoonBase: ScriptableObject
 {
     [field: SerializeField] public string Name {get; protected set;}
     [field: SerializeField] public string Description {get; protected set;}
-    [field: SerializeField] public Texture2D AssociatedImage {get; protected set;}
+    [field: SerializeField] public Sprite AssociatedImage {get; protected set;}
     public abstract void OnBoonActivationEvent(PlayerBoonManager.BoonActivation boonActivation, PlayerBoonManager boonManager);
 }

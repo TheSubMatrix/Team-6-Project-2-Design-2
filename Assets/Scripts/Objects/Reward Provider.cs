@@ -1,13 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 [RequireComponent(typeof(Collider))]
 public class RewardProvider : MonoBehaviour
 {
+    [SerializeField] Image boonImage;
+    [SerializeField] TMP_Text boonTitleText;
+    [SerializeField] TMP_Text boonDescriptionText;
     static bool shouldBeActive;
-    public BoonBase boonToAward;
+    BoonBase m_boonToAward;
+    public BoonBase BoonToAward
+    {
+        get
+        {
+            return m_boonToAward;
+        }
+        set
+        {
+            m_boonToAward = value;
+            UpdateBoonUI();
+        }
+    }
     void Awake()
     {
+        if(BoonToAward != null)
+        {
+            UpdateBoonUI();
+        }
         if(SceneTransitionManager.Instance != null)
         {
             SceneTransitionManager.Instance.OnSceneTransitionCompleted.AddListener(OnSceneTransitionCompleted);
@@ -21,9 +42,9 @@ public class RewardProvider : MonoBehaviour
     {
         if(other.gameObject.tag == "Player" && shouldBeActive)
         {
-            if(boonToAward != null)
+            if(BoonToAward != null)
             {
-                other.gameObject.GetComponent<PlayerBoonManager>()?.AddBoon(boonToAward);
+                other.gameObject.GetComponent<PlayerBoonManager>()?.AddBoon(BoonToAward);
             }
             RunManager.Instance.CurrentRoomInFloor++;
             SceneTransitionManager.Instance?.TransitionScene(RunManager.Instance.GetRandomSceneOnFloor(), true);
@@ -33,5 +54,20 @@ public class RewardProvider : MonoBehaviour
     void OnSceneTransitionCompleted()
     {
         shouldBeActive = true;
+    }
+    void UpdateBoonUI()
+    {
+        if(boonImage != null)
+        {
+            boonImage.sprite = BoonToAward.AssociatedImage;
+        }
+        if(boonTitleText != null)
+        {
+            boonTitleText.text = BoonToAward.Name;
+        }
+        if(boonDescriptionText != null)
+        {
+            boonDescriptionText.text = BoonToAward.Description;
+        }
     }
 }

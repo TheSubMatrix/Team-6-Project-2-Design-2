@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 'Jackal''s Guidance '
   <Description>k__BackingField: Regain health
-  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 3f10a200556bd9d49884360cef46c4c5,
+  <AssociatedImage>k__BackingField: {fileID: 21300000, guid: 3f10a200556bd9d49884360cef46c4c5,
     type: 3}
   healingAmount: 10

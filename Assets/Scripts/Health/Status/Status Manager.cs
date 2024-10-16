@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StatusManager : MonoBehaviour, IStatusEffectable
 {
-    public List<StatusEffect> StatusEffects { get; private set; }
+    public List<StatusEffect> StatusEffects { get; private set; } = new List<StatusEffect>();
     public void ApplyStatus(StatusEffect effect)
     {
         StatusEffects.Add(effect);
@@ -18,9 +18,12 @@ public class StatusManager : MonoBehaviour, IStatusEffectable
     }
     void Update() 
     {
-        foreach(StatusEffect effect in StatusEffects)
+        if(StatusEffects.Count > 0)
         {
-            effect.OnStatusTicked(this);
+            foreach(StatusEffect effect in StatusEffects)
+            {
+                effect.OnStatusTicked(this);
+            }
         }
     }
 }

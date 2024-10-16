@@ -232,7 +232,7 @@ MonoBehaviour:
   m_useInvulnerabilityAfterDamage: 1
   m_inulnerabilityAfterDamageTimer: 3
   m_useArmor: 0
-  m_armor: 0
+  <Armor>k__BackingField: 0
   m_armorForFiftyPercentReduction: 50
   m_isInvulnerable: 0
   <OnDamage>k__BackingField:
@@ -266,6 +266,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnBecameVulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHealthUpdated:
     m_PersistentCalls:
       m_Calls: []
 --- !u!54 &6882292798033049706
@@ -314,3 +317,5 @@ MonoBehaviour:
   visibilityLayerMask:
     serializedVersion: 2
     m_Bits: 51
+  coinDropper: {fileID: 2930181760066513884, guid: 413c775ed78465b45bede7230e331e98,
+    type: 3}

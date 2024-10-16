@@ -98,14 +98,14 @@ public class RunManager : MonoBehaviour
     void UpdateSceneRewards()
     {
         GameObject[] rewardAwarders = GameObject.FindGameObjectsWithTag("Reward Selection Trigger");
-        if(rewardAwarders.Length > 0 && rewardAwarders != null)
+        if(rewardAwarders.Length > 0)
         {
             foreach(GameObject awarder in rewardAwarders)
             {
                 RewardProvider rewardProvider = awarder.GetComponent<RewardProvider>();
                 if(rewardProvider != null && RewardPool.Count > 0)
                 {
-                    rewardProvider.boonToAward = RewardPool[Random.Range(0, RewardPool.Count)];
+                    rewardProvider.BoonToAward = RewardPool[Random.Range(0, RewardPool.Count)];
                 }
             }
         }
@@ -117,6 +117,8 @@ public class RunManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             PlayerLives = maxPlayerLives;
+            RewardPool.Clear();
+            RewardPool.AddRange(persistantGod.AssociatedBoons);
             SceneTransitionManager.Instance?.OnSceneTransitionCompleted.AddListener(OnSceneChanged);
             callbackChannel.playerCallback.AddListener(OnPlayerGOCallbackRecieved);
             StartCoroutine(AwaitCallbackReturnAsync());
