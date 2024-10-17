@@ -18,8 +18,8 @@ public static class ExtensionMethods
         float startingAlpha = groupToFade.alpha;
         while(currentTime <= timeToFade)
         {
-            groupToFade.alpha = Mathf.Lerp(startingAlpha, desiredAlpha, currentTime / timeToFade);
             currentTime += Time.deltaTime;
+            groupToFade.alpha = Mathf.Lerp(startingAlpha, desiredAlpha, currentTime / timeToFade);
             yield return null;
         }
         groupToFade.interactable = groupToFade.alpha > 0;

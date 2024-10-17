@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField]Animator playerModelAnimator;
     [Header("Movement Options")]
-    [SerializeField] float m_movementSpeed = 6;
+    [SerializeField] public float MovementSpeed = 6;
     [SerializeField] float acceleration;
     [SerializeField] float m_turningSpeed = 1440;
     [Header("Dash Options")]
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!m_isDashing && shouldTryToMove)
         {
-            Vector3 desiredMovement = new Vector3(transform.forward.x * m_movementSpeed * m_playerInput.normalized.magnitude, m_rigidBody.velocity.y, transform.forward.z * m_movementSpeed * m_playerInput.normalized.magnitude);
+            Vector3 desiredMovement = new Vector3(transform.forward.x * MovementSpeed * m_playerInput.normalized.magnitude, m_rigidBody.velocity.y, transform.forward.z * MovementSpeed * m_playerInput.normalized.magnitude);
             //Move the rigidbody based on our direction 
             m_rigidBody.velocity = Vector3.MoveTowards(m_rigidBody.velocity, desiredMovement, acceleration);
         }

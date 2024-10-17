@@ -38,7 +38,9 @@ public class RunManager : MonoBehaviour
     //Life Counting
     public int maxPlayerLives = 0;
 
+    public float ExtraSpeed = 0;
     uint currentSpawnedEnemies = 0;
+
     #region Scene Managment
     [SerializeReference] uint roomsToCompleteBeforeNextFloor = 3;
 
@@ -152,12 +154,17 @@ public class RunManager : MonoBehaviour
     {
         StartCoroutine(OnSceneChanegdAsync());
     }
-    void ApplyPermenantUpgrades()
+    public void ApplyPermenantUpgrades()
     {
         Health playerHealth = Player?.GetComponent<Health>();
         if(playerHealth != null)
         {
-            playerHealth.MaxHealth = playerHealth.MaxHealth + ExtraHealth;
+            playerHealth.MaxHealth += ExtraHealth;
+        }
+        PlayerMovement playerMovement = Player?.GetComponent<PlayerMovement>();
+        if(playerMovement != null)
+        {
+            playerMovement.MovementSpeed += ExtraSpeed;
         }
     }
     void UpdateOnDeathListener()
