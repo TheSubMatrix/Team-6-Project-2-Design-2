@@ -64,4 +64,12 @@ public class PlayerInteractionHandler : MonoBehaviour
 
         }
     }
+    public void ForceEndInteraction()
+    {
+        if(currentInteractor != null)
+        {
+            currentInteractor.OnInteractionEnd();
+            currentInteractor = null;
+        }
+    }
 }
