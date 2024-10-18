@@ -10,7 +10,7 @@ public class LevelProgressionDoor : MonoBehaviour
     {
         if(doorAnimator != null)
         {
-            doorAnimator.SetTrigger("Open Door");
+            doorAnimator.SetTrigger("Open");
         }
         boonInfoPanel.FadeGroup(this, 1);
     }

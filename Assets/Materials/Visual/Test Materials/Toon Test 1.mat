@@ -130,7 +130,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Extra_Metallic: 0
-    - _Extra_Smoothness: 0.29
+    - _Extra_Smoothness: -0.08
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
