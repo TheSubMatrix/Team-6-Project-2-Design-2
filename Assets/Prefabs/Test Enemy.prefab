@@ -69,7 +69,7 @@ MonoBehaviour:
   playerDetectionUpdated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016350372348072193}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AIController, Assembly-CSharp
         m_MethodName: OnPlayerCollisionStateChanegd
         m_Mode: 0
@@ -96,7 +96,8 @@ GameObject:
   - component: {fileID: 8713562538816842719}
   - component: {fileID: 7109627346288192981}
   - component: {fileID: 6882292798033049706}
-  - component: {fileID: 1016350372348072193}
+  - component: {fileID: 2703149684584025318}
+  - component: {fileID: 4678844017789993019}
   m_Layer: 2
   m_Name: Test Enemy
   m_TagString: Untagged
@@ -127,7 +128,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7107316538216514409}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -2634040074702180757, guid: 64d2c3d179e0f904fbf1768df308106a, type: 3}
 --- !u!23 &8143859711828418544
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -148,7 +149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67b582446029d8d45901a7e47989078a, type: 2}
+  - {fileID: 2100000, guid: f7f9bc7579eab5c4bacfb68db59d230f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,9 +191,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 2.0809789
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &8713562538816842719
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &7109627346288192981
@@ -229,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_currentHealth: 100
   m_maxHealth: 100
-  m_useInvulnerabilityAfterDamage: 1
+  m_useInvulnerabilityAfterDamage: 0
   m_inulnerabilityAfterDamageTimer: 3
   m_useArmor: 0
   <Armor>k__BackingField: 0
@@ -247,7 +248,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016350372348072193}
+      - m_Target: {fileID: 4678844017789993019}
         m_TargetAssemblyTypeName: AIController, Assembly-CSharp
         m_MethodName: OnDeath
         m_Mode: 1
@@ -257,7 +258,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   OnRevive:
     m_PersistentCalls:
@@ -298,7 +299,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &1016350372348072193
+--- !u!114 &2703149684584025318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7107316538216514409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efdf260140feb684c8bb9e0a5a3457a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4678844017789993019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -310,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b2c97641ce0a94995fdfea801278bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 8713562538816842719}
+  navMeshAgent: {fileID: 0}
   stillThreshold: 0.05
   stunTime: 0.25
   timeBetweenNavigationUpdates: 0.5

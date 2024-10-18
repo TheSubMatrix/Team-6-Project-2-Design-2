@@ -4866,56 +4866,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playerDetectionUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2095795117}
-    - target: {fileID: 4154900215426310260, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: m_Height
-      value: 2.0809789
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154900215426310260, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882292798033049706, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7107316538216514409, guid: ee5d5a89abfc9134cb316f327ee4a808,
         type: 3}
       propertyPath: m_Name
       value: Test Enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: m_useInvulnerabilityAfterDamage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2095795117}
-    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnDeath
-      objectReference: {fileID: 0}
-    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AIController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7109627346288192981, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7173478775516980422, guid: ee5d5a89abfc9134cb316f327ee4a808,
         type: 3}
@@ -4925,7 +4880,7 @@ PrefabInstance:
     - target: {fileID: 7173478775516980422, guid: ee5d5a89abfc9134cb316f327ee4a808,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.503
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 7173478775516980422, guid: ee5d5a89abfc9134cb316f327ee4a808,
         type: 3}
@@ -4967,35 +4922,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8143859711828418544, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f7f9bc7579eab5c4bacfb68db59d230f, type: 2}
-    - target: {fileID: 8713562538816842719, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: m_BaseOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807176749978163314, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: -2634040074702180757, guid: 64d2c3d179e0f904fbf1768df308106a,
-        type: 3}
-    m_RemovedComponents:
-    - {fileID: 1016350372348072193, guid: ee5d5a89abfc9134cb316f327ee4a808, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7107316538216514409, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2095795117}
-    - targetCorrespondingSourceObject: {fileID: 7107316538216514409, guid: ee5d5a89abfc9134cb316f327ee4a808,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2095795118}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee5d5a89abfc9134cb316f327ee4a808, type: 3}
 --- !u!4 &1286153822 stripped
 Transform:
@@ -7789,51 +7719,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080588507}
   m_CullTransparentMesh: 1
---- !u!1 &2095795106 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7107316538216514409, guid: ee5d5a89abfc9134cb316f327ee4a808,
-    type: 3}
-  m_PrefabInstance: {fileID: 1285948528}
-  m_PrefabAsset: {fileID: 0}
---- !u!195 &2095795109 stripped
-NavMeshAgent:
-  m_CorrespondingSourceObject: {fileID: 8713562538816842719, guid: ee5d5a89abfc9134cb316f327ee4a808,
-    type: 3}
-  m_PrefabInstance: {fileID: 1285948528}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2095795117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095795106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fa5a41c2baaf26499228fa97292b709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 2095795109}
-  stillThreshold: 0.05
-  stunTime: 0.25
-  timeBetweenNavigationUpdates: 0.5
-  visibilityLayerMask:
-    serializedVersion: 2
-    m_Bits: 51
-  coinDropper: {fileID: 2930181760066513884, guid: 413c775ed78465b45bede7230e331e98,
-    type: 3}
---- !u!114 &2095795118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095795106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efdf260140feb684c8bb9e0a5a3457a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2139150500
 PrefabInstance:
   m_ObjectHideFlags: 0
