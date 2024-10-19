@@ -98,8 +98,9 @@ GameObject:
   - component: {fileID: 6882292798033049706}
   - component: {fileID: 2703149684584025318}
   - component: {fileID: 4678844017789993019}
+  - component: {fileID: 127736493387027992}
   m_Layer: 2
-  m_Name: Test Enemy
+  m_Name: BanditEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,3 +333,24 @@ MonoBehaviour:
     m_Bits: 51
   coinDropper: {fileID: 2930181760066513884, guid: 413c775ed78465b45bede7230e331e98,
     type: 3}
+--- !u!95 &127736493387027992
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7107316538216514409}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 514167661071bd947a3f9926ee1ea628, type: 3}
+  m_Controller: {fileID: 9100000, guid: b1b254d0776bfef469714e1806387263, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
