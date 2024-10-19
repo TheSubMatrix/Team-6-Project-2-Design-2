@@ -92,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //setup variables for upcoming dash
         m_isDashing = true;
+        playerModelAnimator.SetTrigger("Dodge");
         OnDashStarted?.Invoke();
         float elapsedTime = 0f;
         //Move the position along the dash a given amount every fixed update

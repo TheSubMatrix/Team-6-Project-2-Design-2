@@ -64,7 +64,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
     }
     public void OnDeath()
     {
-        CoinDropper dropper = Instantiate(coinDropper, transform.position, transform.rotation).GetComponent<CoinDropper>();
+        CoinDropper dropper = Instantiate(coinDropper, transform.position + transform.up, transform.rotation).GetComponent<CoinDropper>();
         Destroy(gameObject);
     }
 
