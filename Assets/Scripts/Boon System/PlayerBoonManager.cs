@@ -11,7 +11,8 @@ public class PlayerBoonManager : MonoBehaviour
         OnDashStarted,
         OnDashEnded,
         OnDamaged,
-        OnAttack,
+        OnThirdAttackStarted,
+        OnThirdAttackEnded,
         OnAdded,
         OnDeath
     }

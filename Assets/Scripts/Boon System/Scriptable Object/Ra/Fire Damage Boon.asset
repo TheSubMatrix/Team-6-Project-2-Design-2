@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1de6ce5bb433f594cb531d0818445d21, type: 3}
-  m_Name: Fire damage on attack
+  m_Script: {fileID: 11500000, guid: 0458ef58b15e1fd42924125a7d0bb675, type: 3}
+  m_Name: Fire Damage Boon
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Burning Blade
   <Description>k__BackingField: Attacks deal fire damage
-  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: 6e79d202239534546b79f6b6153fa78f,
+  <AssociatedImage>k__BackingField: {fileID: 21300000, guid: 6e79d202239534546b79f6b6153fa78f,
     type: 3}
+  scriptToAdd: FireProcAdder
