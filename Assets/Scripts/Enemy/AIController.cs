@@ -8,6 +8,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
 {
     [Header("References")]
     public NavMeshAgent navMeshAgent;
+    public Animator enemyAnimator;
     [Header("Knockback Settings")]
     [Range(0.001f, 0.1f)][SerializeField] float stillThreshold = 0.05f;
     [SerializeField] float stunTime = 0.25f;
@@ -42,7 +43,7 @@ public class AIController : MonoBehaviour, IKnockbackReceiver
             Debug.LogWarning("State not transitioned to because it could not be found");
         }
     }
-    private void Update()
+    protected virtual void Update()
     {
         if(!StunnedByKnockback)
         {

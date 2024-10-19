@@ -9,6 +9,7 @@ public class MeleeAIChaseState : AIBaseState
 
     }
     const float DELAY_BEFORE_PLAYER_LOST = 5;
+    const float DISTANCE_FOR_PLAYER_ATTACK = 5f;
     bool awaitPlayerLossSightDispatched = false;
     Coroutine awaitPlayerLossSight;
 
@@ -40,6 +41,7 @@ public class MeleeAIChaseState : AIBaseState
     {
        awaitPlayerLossSight = null;
        awaitPlayerLossSightDispatched = false;
+       controller.enemyAnimator.SetBool("Attacking", false);
     }
 
     public override void OnStateUpdate(AIController controller)
@@ -50,6 +52,13 @@ public class MeleeAIChaseState : AIBaseState
     public override void OnUpdateNavigation(AIController controller)
     {
         controller.navMeshAgent.destination = Player.transform.position;
+        if(Vector3.Distance(new Vector3(controller.transform.position.x, 0, controller.transform.position.z), new Vector3(Player.transform.position.x, 0, Player.transform.position.z)) < DISTANCE_FOR_PLAYER_ATTACK)
+        {
+            controller.enemyAnimator.SetBool("Attacking", true);
+        }else
+        {
+            controller.enemyAnimator.SetBool("Attacking", false);
+        }
     }
     IEnumerator AwaitPlayerLossSightAsync(AIController controller)
     {

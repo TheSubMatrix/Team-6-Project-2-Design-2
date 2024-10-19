@@ -11,4 +11,11 @@ public class SimpleMeleeAI : AIController
         currentState = GetState("Patrol");
         base.Awake();
     }
+    protected override void Update()
+    {
+        if(enemyAnimator != null)
+        {
+            enemyAnimator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
+        }
+    }
 }

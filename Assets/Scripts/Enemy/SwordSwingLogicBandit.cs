@@ -7,7 +7,7 @@ public class SwordSwingLogicBandit : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject sword = animator.transform.Find("BanditWeapon").gameObject;
+        GameObject sword = animator.transform.FindDeepChild("BanditWeapon").gameObject;
         sword.GetComponent<Collider>().enabled = true;
     }
 
@@ -20,7 +20,7 @@ public class SwordSwingLogicBandit : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject sword = animator.transform.Find("BanditWeapon").gameObject;
+        GameObject sword = animator.transform.FindDeepChild("BanditWeapon").gameObject;
         sword.GetComponent<Collider>().enabled = false;
     }
 
