@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1de6ce5bb433f594cb531d0818445d21, type: 3}
-  m_Name: Bleed Radius
+  m_Script: {fileID: 11500000, guid: b3bea5197e3b63743969f9cd582adc43, type: 3}
+  m_Name: Radial Bleed
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Deathly Aura
   <Description>k__BackingField: Deal bleed damage in a small radius
-  <AssociatedImage>k__BackingField: {fileID: 2800000, guid: ba1acf3269ab2de4f95e6d2a1452a5e9,
-    type: 3}
+  <AssociatedImage>k__BackingField: {fileID: 0}
+  radius: 1.5
